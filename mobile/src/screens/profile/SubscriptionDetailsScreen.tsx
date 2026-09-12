@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { useAuthStore } from '@/store/useAuthStore';
+import { View, Text, StyleSheet } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import { fetchSubscription, pauseSubscription } from '@/services/api/subscription';
 import { SubscriptionInfo } from '@/types';
-import { colors } from '@/theme/colors';
+import { colors, gradients } from '@/theme/colors';
 import { typography } from '@/theme/typography';
+import { radii } from '@/theme/spacing';
+import { GradientButton } from '@/components/GradientButton';
 
 export function SubscriptionDetailsScreen() {
   const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
@@ -15,34 +17,36 @@ export function SubscriptionDetailsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={typography.h1}>Subscription</Text>
+      <Text style={typography.display}>Subscription</Text>
       {subscription && (
-        <>
-          <Text style={typography.body}>Plan: {subscription.plan}</Text>
-          <Text style={typography.body}>Started: {subscription.startedAt}</Text>
-          <Text style={typography.body}>Expires: {subscription.expiresAt}</Text>
-          <Text style={typography.body}>
-            Price: {subscription.price} {subscription.currency}
+        <LinearGradient colors={[...gradients.hero]} style={styles.card}>
+          <Text style={styles.plan}>{subscription.plan} plan</Text>
+          <Text style={styles.price}>
+            {subscription.price} {subscription.currency}
+            <Text style={styles.perYear}> / year</Text>
           </Text>
-        </>
+          <View style={styles.divider} />
+          <Text style={styles.detail}>Started: {subscription.startedAt}</Text>
+          <Text style={styles.detail}>Expires: {subscription.expiresAt}</Text>
+        </LinearGradient>
       )}
-      <Pressable
-        style={styles.pauseButton}
+      <GradientButton
+        label="Pause for 1 month"
+        variant="sunset"
         onPress={() => pauseSubscription('').then(setSubscription)}
-      >
-        <Text style={{ color: colors.surface }}>Pause for 1 month</Text>
-      </Pressable>
+        style={styles.pauseButton}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 24, backgroundColor: colors.background },
-  pauseButton: {
-    backgroundColor: colors.secondary,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginTop: 24,
-  },
+  card: { borderRadius: radii.lg, padding: 20, marginTop: 20 },
+  plan: { ...typography.label, color: colors.textOnDark, opacity: 0.85 },
+  price: { ...typography.display, color: colors.textOnDark, marginTop: 4 },
+  perYear: { ...typography.body, color: colors.textOnDark, opacity: 0.8 },
+  divider: { height: 1, backgroundColor: 'rgba(255,255,255,0.25)', marginVertical: 14 },
+  detail: { ...typography.body, color: colors.textOnDark, opacity: 0.9 },
+  pauseButton: { marginTop: 24 },
 });

@@ -32,13 +32,16 @@ export function SearchScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={typography.h1}>{t('search.title')}</Text>
-      <FilterBar options={TYPE_OPTIONS} selected={type} onSelect={(v) => { setType(v); runSearch(); }} />
-      <FilterBar options={DIFFICULTY_OPTIONS} selected={difficulty} onSelect={(v) => { setDifficulty(v); runSearch(); }} />
-      <FilterBar options={INTENSITY_OPTIONS} selected={intensity} onSelect={(v) => { setIntensity(v); runSearch(); }} />
+      <Text style={[typography.display, styles.title]}>{t('search.title')}</Text>
+      <View style={styles.filters}>
+        <FilterBar options={TYPE_OPTIONS} selected={type} onSelect={(v) => { setType(v); runSearch(); }} />
+        <FilterBar options={DIFFICULTY_OPTIONS} selected={difficulty} onSelect={(v) => { setDifficulty(v); runSearch(); }} />
+        <FilterBar options={INTENSITY_OPTIONS} selected={intensity} onSelect={(v) => { setIntensity(v); runSearch(); }} />
+      </View>
       <FlatList
         data={results}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.list}
         renderItem={({ item }) => (
           <PracticeCard
             practice={item}
@@ -51,5 +54,8 @@ export function SearchScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24, backgroundColor: colors.background },
+  container: { flex: 1, backgroundColor: colors.background },
+  title: { paddingHorizontal: 24, paddingTop: 24 },
+  filters: { paddingHorizontal: 24 },
+  list: { paddingHorizontal: 24, paddingBottom: 24 },
 });

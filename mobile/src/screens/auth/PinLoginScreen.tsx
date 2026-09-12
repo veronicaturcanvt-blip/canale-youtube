@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/store/useAuthStore';
+import { GradientButton } from '@/components/GradientButton';
 import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
+import { radii } from '@/theme/spacing';
 
 export function PinLoginScreen() {
   const { t } = useTranslation();
@@ -12,31 +14,32 @@ export function PinLoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={typography.h1}>{t('auth.loginWithPin')}</Text>
+      <Text style={typography.display}>{t('auth.loginWithPin')}</Text>
       <TextInput
         style={styles.input}
         placeholder="PIN"
+        placeholderTextColor={colors.textSecondary}
         keyboardType="number-pad"
         secureTextEntry
         maxLength={6}
         value={pin}
         onChangeText={setPin}
       />
-      <Pressable style={styles.cta} onPress={() => loginWithPin(pin)}>
-        <Text style={{ color: colors.surface }}>{t('auth.login')}</Text>
-      </Pressable>
+      <GradientButton label={t('auth.login')} onPress={() => loginWithPin(pin)} style={styles.cta} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 24, backgroundColor: colors.background, justifyContent: 'center' },
-  input: { backgroundColor: colors.surface, borderRadius: 8, padding: 12, marginTop: 12, textAlign: 'center' },
-  cta: {
-    backgroundColor: colors.primary,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginTop: 24,
+  input: {
+    backgroundColor: colors.surface,
+    borderRadius: radii.md,
+    padding: 14,
+    marginTop: 14,
+    textAlign: 'center',
+    ...typography.h2,
+    letterSpacing: 8,
   },
+  cta: { marginTop: 24 },
 });

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { VideoPlayer } from '@/components/VideoPlayer';
+import { Badge } from '@/components/Badge';
 import { fetchPracticeById } from '@/services/api/practices';
 import { Practice } from '@/types';
 import { colors } from '@/theme/colors';
@@ -25,12 +26,20 @@ export function PracticePlayerScreen({ route }: any) {
   return (
     <View style={styles.container}>
       <VideoPlayer streamUrl={practice.videoUrl} />
-      <Text style={[typography.h2, styles.title]}>{practice.title}</Text>
+      <View style={styles.info}>
+        <Text style={typography.h1}>{practice.title}</Text>
+        <View style={styles.badges}>
+          <Badge label={`${practice.durationMinutes} min`} />
+          <Badge label={practice.difficulty} color={colors.accentLight} />
+          <Badge label={practice.intensity} color={colors.secondaryLight} />
+        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  title: { padding: 16, color: colors.textPrimary },
+  info: { padding: 20 },
+  badges: { flexDirection: 'row', gap: 8, marginTop: 10 },
 });

@@ -5,8 +5,13 @@ import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { Equipment } from '@/types';
 import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
+import { radii, shadow } from '@/theme/spacing';
 
-const EQUIPMENT_OPTIONS: Equipment[] = ['none', 'mat', 'reformer'];
+const EQUIPMENT_OPTIONS: { value: Equipment; emoji: string; color: string }[] = [
+  { value: 'none', emoji: '🧘', color: colors.coral },
+  { value: 'mat', emoji: '🟩', color: colors.primary },
+  { value: 'reformer', emoji: '⚙️', color: colors.secondary },
+];
 
 export function OnboardingEquipmentScreen({ navigation }: any) {
   const { t } = useTranslation();
@@ -14,17 +19,20 @@ export function OnboardingEquipmentScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={typography.h1}>{t('onboarding.chooseEquipment')}</Text>
-      {EQUIPMENT_OPTIONS.map((equipment) => (
+      <Text style={typography.display}>{t('onboarding.chooseEquipment')}</Text>
+      {EQUIPMENT_OPTIONS.map(({ value, emoji, color }) => (
         <Pressable
-          key={equipment}
+          key={value}
           style={styles.option}
           onPress={() => {
-            setEquipment(equipment);
+            setEquipment(value);
             navigation.navigate('Paywall');
           }}
         >
-          <Text style={typography.body}>{equipment}</Text>
+          <View style={[styles.iconCircle, { backgroundColor: color }]}>
+            <Text style={styles.icon}>{emoji}</Text>
+          </View>
+          <Text style={[typography.bodyStrong, styles.label]}>{value}</Text>
         </Pressable>
       ))}
     </View>
@@ -34,9 +42,22 @@ export function OnboardingEquipmentScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 24, backgroundColor: colors.background },
   option: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: colors.surface,
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 12,
+    borderRadius: radii.lg,
+    padding: 14,
+    marginTop: 14,
+    ...shadow.card,
   },
+  iconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 14,
+  },
+  icon: { fontSize: 20 },
+  label: { textTransform: 'capitalize' },
 });

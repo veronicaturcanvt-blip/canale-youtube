@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/store/useAuthStore';
+import { GradientButton } from '@/components/GradientButton';
 import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
+import { radii } from '@/theme/spacing';
 
 export function LoginScreen({ navigation }: any) {
   const { t } = useTranslation();
@@ -13,18 +15,27 @@ export function LoginScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={typography.h1}>{t('auth.login')}</Text>
-      <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} />
+      <Text style={typography.display}>{t('auth.login')}</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        placeholderTextColor={colors.textSecondary}
+        value={email}
+        onChangeText={setEmail}
+      />
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor={colors.textSecondary}
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
-      <Pressable style={styles.cta} onPress={() => loginWithCredentials(email, password)}>
-        <Text style={{ color: colors.surface }}>{t('auth.login')}</Text>
-      </Pressable>
+      <GradientButton
+        label={t('auth.login')}
+        onPress={() => loginWithCredentials(email, password)}
+        style={styles.cta}
+      />
       <Pressable onPress={() => navigation.navigate('PinLogin')}>
         <Text style={styles.link}>{t('auth.loginWithPin')}</Text>
       </Pressable>
@@ -34,13 +45,13 @@ export function LoginScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 24, backgroundColor: colors.background, justifyContent: 'center' },
-  input: { backgroundColor: colors.surface, borderRadius: 8, padding: 12, marginTop: 12 },
-  cta: {
-    backgroundColor: colors.primary,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginTop: 24,
+  input: {
+    backgroundColor: colors.surface,
+    borderRadius: radii.md,
+    padding: 14,
+    marginTop: 14,
+    ...typography.body,
   },
-  link: { textAlign: 'center', marginTop: 16, color: colors.textSecondary },
+  cta: { marginTop: 24 },
+  link: { textAlign: 'center', marginTop: 18, color: colors.secondaryDark, fontWeight: '600' },
 });

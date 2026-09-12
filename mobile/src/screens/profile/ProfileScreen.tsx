@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/store/useAuthStore';
 import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
+import { radii, shadow } from '@/theme/spacing';
 
 const MENU_ITEMS = [
-  { key: 'Stats', labelKey: 'profile.stats' },
-  { key: 'Favorites', labelKey: 'profile.favorites' },
-  { key: 'SubscriptionDetails', labelKey: 'profile.subscription' },
-  { key: 'PersonalData', labelKey: 'profile.personalData' },
+  { key: 'Stats', labelKey: 'profile.stats', emoji: '📊', color: colors.primary },
+  { key: 'Favorites', labelKey: 'profile.favorites', emoji: '❤️', color: colors.coral },
+  { key: 'SubscriptionDetails', labelKey: 'profile.subscription', emoji: '💳', color: colors.secondary },
+  { key: 'PersonalData', labelKey: 'profile.personalData', emoji: '👤', color: colors.accent },
 ] as const;
 
 export function ProfileScreen({ navigation }: any) {
@@ -18,14 +19,20 @@ export function ProfileScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={typography.h1}>{t('profile.title')}</Text>
+      <Text style={typography.display}>{t('profile.title')}</Text>
       {MENU_ITEMS.map((item) => (
         <Pressable key={item.key} style={styles.row} onPress={() => navigation.navigate(item.key)}>
-          <Text style={typography.body}>{t(item.labelKey)}</Text>
+          <View style={[styles.iconCircle, { backgroundColor: item.color }]}>
+            <Text style={styles.icon}>{item.emoji}</Text>
+          </View>
+          <Text style={typography.bodyStrong}>{t(item.labelKey)}</Text>
         </Pressable>
       ))}
-      <Pressable style={styles.row} onPress={logout}>
-        <Text style={[typography.body, { color: colors.error }]}>{t('profile.logout')}</Text>
+      <Pressable style={[styles.row, styles.logoutRow]} onPress={logout}>
+        <View style={[styles.iconCircle, { backgroundColor: colors.error }]}>
+          <Text style={styles.icon}>🚪</Text>
+        </View>
+        <Text style={[typography.bodyStrong, { color: colors.error }]}>{t('profile.logout')}</Text>
       </Pressable>
     </View>
   );
@@ -34,9 +41,22 @@ export function ProfileScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 24, backgroundColor: colors.background },
   row: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: colors.surface,
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: radii.lg,
+    padding: 14,
     marginTop: 12,
+    ...shadow.card,
   },
+  logoutRow: { marginTop: 24 },
+  iconCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 14,
+  },
+  icon: { fontSize: 18 },
 });

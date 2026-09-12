@@ -17,10 +17,11 @@ export function FavoritesScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={typography.h1}>{t('profile.favorites')}</Text>
+      <Text style={[typography.display, styles.title]}>{t('profile.favorites')}</Text>
       <FlatList
         data={favorites}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.list}
         renderItem={({ item }) => (
           <PracticeCard
             practice={item}
@@ -33,5 +34,7 @@ export function FavoritesScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24, backgroundColor: colors.background },
+  container: { flex: 1, backgroundColor: colors.background },
+  title: { paddingHorizontal: 24, paddingTop: 24, paddingBottom: 8 },
+  list: { paddingHorizontal: 24, paddingBottom: 24 },
 });
