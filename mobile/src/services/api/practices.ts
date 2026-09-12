@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { apiRequest } from './client';
 import { Practice, Equipment, PracticeType } from '@/types';
 
@@ -23,5 +24,7 @@ export function fetchPractices(filters: PracticeFilters = {}) {
 }
 
 export function fetchPracticeById(id: string) {
-  return apiRequest<Practice>(`/practices/${id}`);
+  // Tells the backend which DRM scheme to hand back (FairPlay vs Widevine)
+  // for practices delivered through Mux — see VideoPlayer.
+  return apiRequest<Practice>(`/practices/${id}?platform=${Platform.OS}`);
 }

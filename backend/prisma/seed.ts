@@ -4,8 +4,11 @@ const prisma = new PrismaClient();
 
 // Public HLS test streams (Apple's own official player-testing examples,
 // and Mux's public demo stream) — stand-ins until real filmed practices
-// exist. Swap these for real CDN manifest URLs later; nothing else about
-// the API or the app needs to change.
+// exist. Once footage is filmed, don't edit these rows: upload the raw
+// file somewhere reachable and call POST /admin/practices/:id/video (see
+// VideoService) to ingest it through Mux instead — that fills in
+// muxPlaybackId and clears videoUrl automatically. Nothing else about the
+// API or the app needs to change either way.
 const BIPBOP_16X9 =
   'https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8';
 const BIPBOP_4X3 =

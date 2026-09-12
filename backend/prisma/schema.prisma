@@ -32,6 +32,11 @@ enum Intensity {
   HIGH
 }
 
+enum VideoPlaybackPolicy {
+  SIGNED // token-gated HLS, no DRM (used until a DRM configuration is provisioned)
+  DRM    // Widevine/FairPlay-protected via Mux DRM configuration
+}
+
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
@@ -88,9 +93,18 @@ model Practice {
   difficulty      DifficultyLevel
   bodyFocus       String[]
   intensity       Intensity
-  videoUrl        String // HLS/DASH manifest URL on the DRM-protected CDN
+  videoUrl        String? // fallback/legacy manifest URL (e.g. public test streams); null once a Mux asset is attached
   thumbnailUrl    String
   createdAt       DateTime        @default(now())
+
+  // Real filmed content is delivered via Mux instead of a static URL: an
+  // admin ingests the raw footage (POST /admin/practices/:id/video), Mux
+  // encodes it, and a webhook fills in these fields once the asset is
+  // ready. Until then, videoUrl above is served as-is.
+  muxAssetId          String?              @unique
+  muxUploadId         String?              @unique // set while waiting on Mux to finish processing
+  muxPlaybackId       String?              @unique
+  muxPlaybackPolicy   VideoPlaybackPolicy?
 
   favorites  Favorite[]
   completedSessions CompletedSession[]

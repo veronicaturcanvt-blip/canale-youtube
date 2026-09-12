@@ -1,12 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DifficultyLevel, Equipment, Intensity, Practice, PracticeType, Prisma } from '@prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
+import { VideoService } from '../video/video.service';
 import { PracticeFiltersDto } from './dto/practice-filters.dto';
 import { fromEnum, toEnum } from './practice-mappers';
 
 @Injectable()
 export class PracticesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly videoService: VideoService,
+  ) {}
 
   async findAll(filters: PracticeFiltersDto, userId: string) {
     const practices = await this.prisma.practice.findMany({
@@ -18,19 +22,18 @@ export class PracticesService {
     return practices.map((practice) => toPublicPractice(practice, completedIds.has(practice.id)));
   }
 
-  async findById(id: string, userId: string) {
+  async findById(id: string, userId: string, platform?: 'ios' | 'android') {
     const practice = await this.prisma.practice.findUnique({ where: { id } });
     if (!practice) {
       throw new NotFoundException('Practice not found');
     }
 
-    // TODO: once a real DRM CDN is wired up, resolve a signed playback URL
-    // here instead of returning the stored manifest URL directly.
-    const isCompleted = await this.prisma.completedSession.findFirst({
-      where: { userId, practiceId: id },
-    });
+    const [isCompleted, playback] = await Promise.all([
+      this.prisma.completedSession.findFirst({ where: { userId, practiceId: id } }),
+      this.videoService.resolveForPlayback(practice, platform),
+    ]);
 
-    return toPublicPractice(practice, isCompleted !== null);
+    return { ...toPublicPractice(practice, isCompleted !== null), ...playback };
   }
 
   async markCompleted(userId: string, practiceId: string) {

@@ -18,8 +18,12 @@ export class PracticesController {
   }
 
   @Get(':id')
-  findById(@CurrentUser() user: AuthenticatedUser, @Param('id') id: string) {
-    return this.practicesService.findById(id, user.userId);
+  findById(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id') id: string,
+    @Query('platform') platform?: 'ios' | 'android',
+  ) {
+    return this.practicesService.findById(id, user.userId, platform);
   }
 
   @Post(':id/complete')

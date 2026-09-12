@@ -23,9 +23,17 @@ export function PracticePlayerScreen({ route }: any) {
     );
   }
 
+  if (!practice.videoUrl) {
+    return (
+      <View style={styles.container}>
+        <Text style={typography.body}>This practice isn't ready to stream yet.</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <VideoPlayer streamUrl={practice.videoUrl} />
+      <VideoPlayer streamUrl={practice.videoUrl} drm={practice.drm} />
       <View style={styles.info}>
         <Text style={typography.h1}>{practice.title}</Text>
         <View style={styles.badges}>

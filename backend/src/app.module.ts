@@ -9,6 +9,7 @@ import { AchievementsModule } from './modules/achievements/achievements.module';
 import { PushModule } from './modules/push/push.module';
 import { SupportModule } from './modules/support/support.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { VideoModule } from './modules/video/video.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AdminModule } from './modules/admin/admin.module';
     PushModule,
     SupportModule,
     AdminModule,
+    VideoModule,
   ],
 })
 export class AppModule {}

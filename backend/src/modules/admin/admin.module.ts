@@ -5,5 +5,6 @@ import { BasicAuthGuard } from './basic-auth.guard';
 @Module({
   controllers: [AdminController],
   providers: [BasicAuthGuard],
+  exports: [BasicAuthGuard],
 })
 export class AdminModule {}

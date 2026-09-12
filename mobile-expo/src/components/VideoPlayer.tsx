@@ -1,17 +1,21 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useVideoPlayer, VideoView } from 'expo-video';
+import { DrmInfo } from '@/types';
 
 interface Props {
-  // HLS/DASH manifest URL served by the DRM-protected CDN (e.g. Mux, Cloudflare Stream).
+  // Signed HLS manifest URL from the backend (Mux) — never a plain
+  // downloadable file, and short-lived (see PracticesService/VideoService).
   streamUrl: string;
-  drmLicenseUrl?: string;
+  drm?: DrmInfo;
 }
 
 // Expo Go build: uses expo-video for quick preview. DRM playback
-// (Widevine/FairPlay) is not available through Expo Go — the production
-// bare React Native app (see ../mobile/) wires that up via
-// react-native-video once a real CDN license server URL exists.
+// (Widevine/FairPlay) is not available through Expo Go — a managed build
+// can't embed the custom native DRM modules that would need — so `drm` is
+// accepted (for prop parity with the bare app) but intentionally unused
+// here. The production bare React Native app (see ../mobile/) wires DRM up
+// for real via react-native-video.
 export function VideoPlayer({ streamUrl }: Props) {
   const player = useVideoPlayer(streamUrl, (instance) => {
     instance.loop = false;

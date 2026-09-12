@@ -4,6 +4,12 @@ export type PracticeType = 'yoga' | 'pilates' | 'stretching';
 
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 
+export interface DrmInfo {
+  type: 'widevine' | 'fairplay';
+  licenseServerUrl: string;
+  certificateUrl?: string;
+}
+
 export interface Practice {
   id: string;
   title: string;
@@ -13,9 +19,12 @@ export interface Practice {
   difficulty: DifficultyLevel;
   bodyFocus: string[];
   intensity: 'low' | 'medium' | 'high';
-  videoUrl: string;
+  videoUrl: string | null;
   thumbnailUrl: string;
   isCompleted?: boolean;
+  // Present only for practices delivered through Mux with a DRM
+  // configuration attached — see VideoPlayer.
+  drm?: DrmInfo;
 }
 
 export interface UserProfile {
