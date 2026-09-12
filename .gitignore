@@ -1,0 +1,22 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+*.log
+
+# React Native / iOS / Android
+ios/Pods/
+ios/build/
+android/.gradle/
+android/app/build/
+*.keystore
+!debug.keystore
+
+# Prisma
+backend/prisma/migrations/dev.db
+
+# Misc
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,37 @@
+{
+  "onboarding": {
+    "chooseTime": "How much time do you have?",
+    "chooseEquipment": "What equipment do you have?"
+  },
+  "home": {
+    "title": "Today's practices"
+  },
+  "search": {
+    "title": "Search & filters"
+  },
+  "paywall": {
+    "title": "Unlock unlimited practices",
+    "trial": "3-day free trial",
+    "restore": "Restore purchases"
+  },
+  "profile": {
+    "title": "Profile",
+    "stats": "Statistics",
+    "favorites": "Favorites",
+    "subscription": "Subscription",
+    "personalData": "Personal data",
+    "changePin": "Change PIN",
+    "logout": "Log out"
+  },
+  "auth": {
+    "login": "Log in",
+    "loginWithPin": "Log in with PIN"
+  },
+  "referral": {
+    "title": "Invite a friend",
+    "reward": "You get 3 months free, your friend gets a 7-day trial"
+  },
+  "achievements": {
+    "title": "Achievements"
+  }
+}

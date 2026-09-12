@@ -1,0 +1,12 @@
+{
+  "name": "yoga-pilates-app",
+  "private": true,
+  "workspaces": [
+    "mobile",
+    "backend"
+  ],
+  "scripts": {
+    "mobile": "npm run start --workspace=mobile",
+    "backend": "npm run start:dev --workspace=backend"
+  }
+}

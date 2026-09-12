@@ -1,0 +1,37 @@
+{
+  "onboarding": {
+    "chooseTime": "Quanto tempo hai a disposizione?",
+    "chooseEquipment": "Quale attrezzatura hai?"
+  },
+  "home": {
+    "title": "Pratiche di oggi"
+  },
+  "search": {
+    "title": "Cerca e filtra"
+  },
+  "paywall": {
+    "title": "Sblocca pratiche illimitate",
+    "trial": "3 giorni di prova gratuita",
+    "restore": "Ripristina acquisti"
+  },
+  "profile": {
+    "title": "Profilo",
+    "stats": "Statistiche",
+    "favorites": "Preferiti",
+    "subscription": "Abbonamento",
+    "personalData": "Dati personali",
+    "changePin": "Cambia PIN",
+    "logout": "Esci dall'account"
+  },
+  "auth": {
+    "login": "Accedi",
+    "loginWithPin": "Accedi con PIN"
+  },
+  "referral": {
+    "title": "Invita un amico",
+    "reward": "Tu ricevi 3 mesi gratis, il tuo amico una prova di 7 giorni"
+  },
+  "achievements": {
+    "title": "Traguardi"
+  }
+}

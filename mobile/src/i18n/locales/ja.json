@@ -1,0 +1,37 @@
+{
+  "onboarding": {
+    "chooseTime": "どのくらい時間がありますか？",
+    "chooseEquipment": "どの器具をお持ちですか？"
+  },
+  "home": {
+    "title": "今日のプラクティス"
+  },
+  "search": {
+    "title": "検索とフィルター"
+  },
+  "paywall": {
+    "title": "無制限のプラクティスを解除",
+    "trial": "3日間の無料トライアル",
+    "restore": "購入を復元"
+  },
+  "profile": {
+    "title": "プロフィール",
+    "stats": "統計",
+    "favorites": "お気に入り",
+    "subscription": "サブスクリプション",
+    "personalData": "個人情報",
+    "changePin": "PINを変更",
+    "logout": "ログアウト"
+  },
+  "auth": {
+    "login": "ログイン",
+    "loginWithPin": "PINでログイン"
+  },
+  "referral": {
+    "title": "友達を招待",
+    "reward": "あなたは3ヶ月無料、友達は7日間のトライアル"
+  },
+  "achievements": {
+    "title": "実績"
+  }
+}
