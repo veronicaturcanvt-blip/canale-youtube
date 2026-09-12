@@ -1,4 +1,4 @@
 export class PinLoginDto {
-  userId: string;
-  pin: string;
+  userId!: string;
+  pin!: string;
 }
