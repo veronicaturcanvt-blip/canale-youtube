@@ -1,8 +1,8 @@
 import { apiRequest } from './client';
-import { Practice, Equipment } from '@/types';
+import { Practice, Equipment, PracticeType } from '@/types';
 
 export interface PracticeFilters {
-  type?: 'yoga' | 'pilates';
+  type?: PracticeType;
   durationMinutes?: 5 | 15 | 30 | 45;
   equipment?: Equipment;
   difficulty?: string;
@@ -11,7 +11,14 @@ export interface PracticeFilters {
 }
 
 export function fetchPractices(filters: PracticeFilters = {}) {
-  const query = new URLSearchParams(filters as Record<string, string>).toString();
+  // URLSearchParams stringifies `undefined` as the literal text "undefined"
+  // instead of dropping the key, which then fails the backend's filter
+  // validation (or, since it never matches a real value, silently zeroes
+  // out results) — so only pass through keys that actually have a value.
+  const definedEntries = Object.entries(filters).filter(([, value]) => value !== undefined);
+  const query = new URLSearchParams(
+    Object.fromEntries(definedEntries.map(([key, value]) => [key, String(value)])),
+  ).toString();
   return apiRequest<Practice[]>(`/practices?${query}`);
 }
 

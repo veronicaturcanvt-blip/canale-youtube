@@ -8,9 +8,15 @@ import { Practice } from '@/types';
 import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
 
-const TYPE_OPTIONS = ['yoga', 'pilates'];
+const TYPE_OPTIONS = ['yoga', 'pilates', 'stretching'];
 const DIFFICULTY_OPTIONS = ['beginner', 'intermediate', 'advanced'];
 const INTENSITY_OPTIONS = ['low', 'medium', 'high'];
+
+const DIFFICULTY_COLORS: Record<string, string> = {
+  beginner: colors.secondary,
+  intermediate: colors.accent,
+  advanced: colors.error,
+};
 
 export function SearchScreen({ navigation }: any) {
   const { t } = useTranslation();
@@ -19,7 +25,10 @@ export function SearchScreen({ navigation }: any) {
   const [intensity, setIntensity] = useState<string | null>(null);
   const [results, setResults] = useState<Practice[]>([]);
 
-  const runSearch = (overrides: Partial<PracticeFilters> = {}) => {
+  // Filters passed explicitly as overrides rather than read back from state,
+  // since setType/setDifficulty/setIntensity haven't applied yet when this
+  // runs right after them in the same event handler (stale closure).
+  const runSearch = (overrides: Partial<PracticeFilters>) => {
     fetchPractices({
       type: (type as PracticeFilters['type']) ?? undefined,
       difficulty: difficulty ?? undefined,
@@ -34,9 +43,32 @@ export function SearchScreen({ navigation }: any) {
     <View style={styles.container}>
       <Text style={[typography.display, styles.title]}>{t('search.title')}</Text>
       <View style={styles.filters}>
-        <FilterBar options={TYPE_OPTIONS} selected={type} onSelect={(v) => { setType(v); runSearch(); }} />
-        <FilterBar options={DIFFICULTY_OPTIONS} selected={difficulty} onSelect={(v) => { setDifficulty(v); runSearch(); }} />
-        <FilterBar options={INTENSITY_OPTIONS} selected={intensity} onSelect={(v) => { setIntensity(v); runSearch(); }} />
+        <FilterBar
+          options={TYPE_OPTIONS}
+          selected={type}
+          size="lg"
+          onSelect={(v) => {
+            setType(v);
+            runSearch({ type: (v as PracticeFilters['type']) ?? undefined });
+          }}
+        />
+        <FilterBar
+          options={DIFFICULTY_OPTIONS}
+          selected={difficulty}
+          colorMap={DIFFICULTY_COLORS}
+          onSelect={(v) => {
+            setDifficulty(v);
+            runSearch({ difficulty: v ?? undefined });
+          }}
+        />
+        <FilterBar
+          options={INTENSITY_OPTIONS}
+          selected={intensity}
+          onSelect={(v) => {
+            setIntensity(v);
+            runSearch({ intensity: v ?? undefined });
+          }}
+        />
       </View>
       <FlatList
         data={results}

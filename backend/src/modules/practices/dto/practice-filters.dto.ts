@@ -1,8 +1,8 @@
 import { Type } from 'class-transformer';
 import { IsIn, IsOptional, IsString } from 'class-validator';
 
-const PRACTICE_TYPES = ['yoga', 'pilates'] as const;
-const EQUIPMENT = ['none', 'mat', 'reformer'] as const;
+const PRACTICE_TYPES = ['yoga', 'pilates', 'stretching'] as const;
+const EQUIPMENT = ['none', 'mat', 'kettlebells', 'resistance_bands'] as const;
 const DIFFICULTIES = ['beginner', 'intermediate', 'advanced'] as const;
 const INTENSITIES = ['low', 'medium', 'high'] as const;
 const DURATIONS = [5, 15, 30, 45] as const;

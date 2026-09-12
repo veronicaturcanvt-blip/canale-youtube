@@ -1,7 +1,11 @@
 {
   "onboarding": {
-    "chooseTime": "您有多少时间？",
-    "chooseEquipment": "您有什么器材？"
+    "chooseTime": "您有多少时间练习？",
+    "chooseEquipment": "您有什么器材？",
+    "equipmentNone": "无器材",
+    "equipmentMat": "瑜伽垫",
+    "equipmentKettlebells": "壶铃",
+    "equipmentResistanceBands": "弹力带"
   },
   "home": {
     "title": "今日练习"
@@ -21,7 +25,8 @@
     "subscription": "订阅",
     "personalData": "个人信息",
     "changePin": "更改PIN码",
-    "logout": "退出登录"
+    "logout": "退出登录",
+    "language": "语言"
   },
   "auth": {
     "login": "登录",

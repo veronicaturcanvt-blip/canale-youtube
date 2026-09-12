@@ -7,10 +7,11 @@ import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
 import { radii, shadow } from '@/theme/spacing';
 
-const EQUIPMENT_OPTIONS: { value: Equipment; emoji: string; color: string }[] = [
-  { value: 'none', emoji: '🧘', color: colors.coral },
-  { value: 'mat', emoji: '🟩', color: colors.primary },
-  { value: 'reformer', emoji: '⚙️', color: colors.secondary },
+const EQUIPMENT_OPTIONS: { value: Equipment; labelKey: string; emoji: string; color: string }[] = [
+  { value: 'none', labelKey: 'onboarding.equipmentNone', emoji: '🧘', color: colors.coral },
+  { value: 'mat', labelKey: 'onboarding.equipmentMat', emoji: '🟩', color: colors.primary },
+  { value: 'kettlebells', labelKey: 'onboarding.equipmentKettlebells', emoji: '🏋️', color: colors.secondary },
+  { value: 'resistance_bands', labelKey: 'onboarding.equipmentResistanceBands', emoji: '➰', color: colors.accent },
 ];
 
 export function OnboardingEquipmentScreen({ navigation }: any) {
@@ -20,7 +21,7 @@ export function OnboardingEquipmentScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
       <Text style={typography.display}>{t('onboarding.chooseEquipment')}</Text>
-      {EQUIPMENT_OPTIONS.map(({ value, emoji, color }) => (
+      {EQUIPMENT_OPTIONS.map(({ value, labelKey, emoji, color }) => (
         <Pressable
           key={value}
           style={styles.option}
@@ -32,7 +33,7 @@ export function OnboardingEquipmentScreen({ navigation }: any) {
           <View style={[styles.iconCircle, { backgroundColor: color }]}>
             <Text style={styles.icon}>{emoji}</Text>
           </View>
-          <Text style={[typography.bodyStrong, styles.label]}>{value}</Text>
+          <Text style={typography.bodyStrong}>{t(labelKey)}</Text>
         </Pressable>
       ))}
     </View>
@@ -59,5 +60,4 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   icon: { fontSize: 20 },
-  label: { textTransform: 'capitalize' },
 });

@@ -1,6 +1,6 @@
-export type Equipment = 'none' | 'mat' | 'reformer';
+export type Equipment = 'none' | 'mat' | 'kettlebells' | 'resistance_bands';
 
-export type PracticeType = 'yoga' | 'pilates';
+export type PracticeType = 'yoga' | 'pilates' | 'stretching';
 
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
 

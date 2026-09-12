@@ -1,7 +1,11 @@
 {
   "onboarding": {
-    "chooseTime": "¿Cuánto tiempo tienes?",
-    "chooseEquipment": "¿Qué equipo tienes?"
+    "chooseTime": "¿Cuánto tiempo tienes para practicar?",
+    "chooseEquipment": "¿Qué equipo tienes?",
+    "equipmentNone": "Ninguno",
+    "equipmentMat": "Esterilla",
+    "equipmentKettlebells": "Pesas rusas",
+    "equipmentResistanceBands": "Bandas elásticas"
   },
   "home": {
     "title": "Prácticas de hoy"
@@ -21,7 +25,8 @@
     "subscription": "Suscripción",
     "personalData": "Datos personales",
     "changePin": "Cambiar PIN",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "language": "Idioma"
   },
   "auth": {
     "login": "Iniciar sesión",

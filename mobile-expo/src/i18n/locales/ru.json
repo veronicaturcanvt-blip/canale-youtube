@@ -1,7 +1,11 @@
 {
   "onboarding": {
-    "chooseTime": "Сколько у вас времени?",
-    "chooseEquipment": "Какой инвентарь у вас есть?"
+    "chooseTime": "Сколько у вас времени на практику?",
+    "chooseEquipment": "Какой инвентарь у вас есть?",
+    "equipmentNone": "Без инвентаря",
+    "equipmentMat": "Коврик",
+    "equipmentKettlebells": "Гири",
+    "equipmentResistanceBands": "Резинки для фитнеса"
   },
   "home": {
     "title": "Практики на сегодня"
@@ -21,7 +25,8 @@
     "subscription": "Подписка",
     "personalData": "Личные данные",
     "changePin": "Сменить PIN",
-    "logout": "Выйти из аккаунта"
+    "logout": "Выйти из аккаунта",
+    "language": "Язык"
   },
   "auth": {
     "login": "Войти",

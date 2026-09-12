@@ -1,7 +1,11 @@
 {
   "onboarding": {
-    "chooseTime": "Quanto tempo hai a disposizione?",
-    "chooseEquipment": "Quale attrezzatura hai?"
+    "chooseTime": "Quanto tempo hai per allenarti?",
+    "chooseEquipment": "Quale attrezzatura hai?",
+    "equipmentNone": "Nessuna",
+    "equipmentMat": "Tappetino",
+    "equipmentKettlebells": "Kettlebell",
+    "equipmentResistanceBands": "Bande elastiche"
   },
   "home": {
     "title": "Pratiche di oggi"
@@ -21,7 +25,8 @@
     "subscription": "Abbonamento",
     "personalData": "Dati personali",
     "changePin": "Cambia PIN",
-    "logout": "Esci dall'account"
+    "logout": "Esci dall'account",
+    "language": "Lingua"
   },
   "auth": {
     "login": "Accedi",

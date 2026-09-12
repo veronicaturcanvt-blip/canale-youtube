@@ -1,7 +1,11 @@
 {
   "onboarding": {
-    "chooseTime": "How much time do you have?",
-    "chooseEquipment": "What equipment do you have?"
+    "chooseTime": "How much time do you have to practice?",
+    "chooseEquipment": "What equipment do you have?",
+    "equipmentNone": "None",
+    "equipmentMat": "Mat",
+    "equipmentKettlebells": "Kettlebells",
+    "equipmentResistanceBands": "Resistance bands"
   },
   "home": {
     "title": "Today's practices"
@@ -21,7 +25,8 @@
     "subscription": "Subscription",
     "personalData": "Personal data",
     "changePin": "Change PIN",
-    "logout": "Log out"
+    "logout": "Log out",
+    "language": "Language"
   },
   "auth": {
     "login": "Log in",

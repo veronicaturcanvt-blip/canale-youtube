@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/store/useAuthStore';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { colors } from '@/theme/colors';
 import { typography } from '@/theme/typography';
 import { radii, shadow } from '@/theme/spacing';
@@ -19,7 +20,9 @@ export function ProfileScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={typography.display}>{t('profile.title')}</Text>
+      <Text style={[typography.display, styles.title]}>{t('profile.title')}</Text>
+      <Text style={styles.sectionLabel}>{t('profile.language')}</Text>
+      <LanguageSwitcher />
       {MENU_ITEMS.map((item) => (
         <Pressable key={item.key} style={styles.row} onPress={() => navigation.navigate(item.key)}>
           <View style={[styles.iconCircle, { backgroundColor: item.color }]}>
@@ -40,6 +43,12 @@ export function ProfileScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 24, backgroundColor: colors.background },
+  title: { marginBottom: 16 },
+  sectionLabel: {
+    ...typography.label,
+    color: colors.textSecondary,
+    marginBottom: 8,
+  },
   row: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -10,12 +10,14 @@ datasource db {
 enum PracticeType {
   YOGA
   PILATES
+  STRETCHING
 }
 
 enum Equipment {
   NONE
   MAT
-  REFORMER
+  KETTLEBELLS
+  RESISTANCE_BANDS
 }
 
 enum DifficultyLevel {

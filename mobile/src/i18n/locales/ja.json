@@ -1,7 +1,11 @@
 {
   "onboarding": {
-    "chooseTime": "どのくらい時間がありますか？",
-    "chooseEquipment": "どの器具をお持ちですか？"
+    "chooseTime": "練習にどのくらい時間がありますか？",
+    "chooseEquipment": "どの器具をお持ちですか？",
+    "equipmentNone": "器具なし",
+    "equipmentMat": "マット",
+    "equipmentKettlebells": "ケトルベル",
+    "equipmentResistanceBands": "レジスタンスバンド"
   },
   "home": {
     "title": "今日のプラクティス"
@@ -21,7 +25,8 @@
     "subscription": "サブスクリプション",
     "personalData": "個人情報",
     "changePin": "PINを変更",
-    "logout": "ログアウト"
+    "logout": "ログアウト",
+    "language": "言語"
   },
   "auth": {
     "login": "ログイン",
