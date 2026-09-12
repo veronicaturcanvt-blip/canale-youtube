@@ -37,7 +37,7 @@ Studio), либо перейти на Expo целиком (проще перес
 | Видео          | react-native-video в `mobile/` / expo-video в `mobile-expo/` (заглушка под HLS/DASH + DRM) |
 | Сервер         | Node.js + NestJS-style модули                 |
 | База данных    | PostgreSQL + Prisma ORM                       |
-| Оплата         | Stripe / App Store / Google Play billing (заглушки) |
+| Оплата         | Stripe Checkout + webhooks (реализовано); App Store/Google Play billing (заглушка) |
 
 ## С чем эти папки НЕ помогают (нужно подключить отдельно)
 
@@ -76,11 +76,44 @@ Expo Go (Android) — приложение откроется прямо на т
 при правке кода. Если телефон в другой сети, чем компьютер, добавьте флаг
 `--tunnel` (`npx expo start --tunnel`).
 
+## Настройка Stripe (для `backend/`)
+
+Реализовано: `POST /subscriptions/me/checkout` (Stripe Checkout Session, годовой
+план, 3-дневный trial), `POST /subscriptions/me/pause` (Stripe
+`pause_collection`, без списаний 30 дней), `POST /subscriptions/me/restore`
+(пересинхронизация подписки по `stripeCustomerId`, на случай если вебхук
+потерялся), `POST /subscriptions/webhooks/stripe` (подпись проверяется по
+`STRIPE_WEBHOOK_SECRET`, сырое тело запроса — см. `main.ts`).
+
+Чтобы это реально заработало (не только скомпилировалось), в `backend/.env`
+нужны настоящие значения из Stripe Dashboard (тестовый режим):
+- `STRIPE_SECRET_KEY` — секретный ключ API
+- `STRIPE_WEBHOOK_SECRET` — секрет для проверки подписи вебхука (из
+  `stripe listen` при локальной разработке, или из настроек вебхука в
+  Dashboard)
+- `STRIPE_PRICE_ANNUAL_ID` — ID цены годового плана (Stripe Dashboard →
+  Product catalog)
+- `STRIPE_CHECKOUT_SUCCESS_URL` / `STRIPE_CHECKOUT_CANCEL_URL` — куда Stripe
+  вернёт пользователя после оплаты/отмены (deep link в приложение)
+
+Без настоящих ключей чекаут/пауза/restore будут возвращать `502 Bad Gateway`
+с понятным сообщением (а не падать 500) — так и было проверено в этой
+песочнице, где вообще нет доступа к api.stripe.com. Локальную проверку
+подписи вебхука (без сети) можно прогнать через
+`stripe.webhooks.generateTestHeaderString` — именно так это было
+верифицировано при разработке.
+
+Логика лояльной скидки на продление (−30% со второго года) из ТЗ **не**
+реализована — это отдельная, более сложная фича (нужен Stripe
+coupon/subscription schedule), не входила в этот запрос.
+
 ## Дальнейшие шаги
 
 1. Утвердить UI по мокапам, сверстать экраны из ТЗ.
 2. Подключить провайдера видео с DRM и получить тестовые HLS/DASH ссылки.
-3. Настроить Stripe + App Store/Google Play подписки (sandbox).
-4. Реализовать реальную логику модулей backend (сейчас — заглушки).
+3. Подставить реальные Stripe-ключи (см. выше) и настроить App
+   Store/Google Play billing.
+4. Реализовать оставшиеся заглушки backend (practices, referrals,
+   achievements, push).
 5. Настроить push-уведомления (Firebase Cloud Messaging / APNs).
 6. Юридическое: политика конфиденциальности, GDPR-флоу удаления данных.

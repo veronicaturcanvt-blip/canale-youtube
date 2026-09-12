@@ -40,6 +40,7 @@ model User {
   birthDate     DateTime?
   country       String?
   createdAt     DateTime  @default(now())
+  stripeCustomerId String? @unique
 
   subscription     Subscription?
   favorites        Favorite[]
