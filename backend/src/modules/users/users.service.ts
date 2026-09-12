@@ -55,6 +55,7 @@ export class UsersService {
       this.prisma.completedSession.deleteMany({ where: { userId } }),
       this.prisma.userAchievement.deleteMany({ where: { userId } }),
       this.prisma.deviceToken.deleteMany({ where: { userId } }),
+      this.prisma.supportMessage.deleteMany({ where: { userId } }),
       this.prisma.referralCode.deleteMany({ where: { userId } }),
       this.prisma.referral.deleteMany({
         where: { OR: [{ referrerId: userId }, { referredId: userId }] },

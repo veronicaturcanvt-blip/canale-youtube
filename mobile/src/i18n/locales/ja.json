@@ -26,7 +26,8 @@
     "personalData": "個人情報",
     "changePin": "PINを変更",
     "logout": "ログアウト",
-    "language": "言語"
+    "language": "言語",
+    "support": "サポート"
   },
   "auth": {
     "login": "ログイン",
@@ -38,5 +39,13 @@
   },
   "achievements": {
     "title": "実績"
+  },
+  "support": {
+    "title": "サポート",
+    "subtitle": "お困りのことやご質問をお聞かせください。すぐにご返信します。",
+    "placeholder": "問題やご質問を記入してください...",
+    "submit": "送信",
+    "success": "ありがとうございます！メッセージを受け取りました。すぐに返信します。",
+    "error": "送信できませんでした。もう一度お試しください。"
   }
 }

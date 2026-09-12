@@ -26,7 +26,8 @@
     "personalData": "Dati personali",
     "changePin": "Cambia PIN",
     "logout": "Esci dall'account",
-    "language": "Lingua"
+    "language": "Lingua",
+    "support": "Assistenza"
   },
   "auth": {
     "login": "Accedi",
@@ -38,5 +39,13 @@
   },
   "achievements": {
     "title": "Traguardi"
+  },
+  "support": {
+    "title": "Assistenza",
+    "subtitle": "Raccontaci eventuali difficoltà o domande — ti risponderemo presto.",
+    "placeholder": "Descrivi il tuo problema o la tua domanda...",
+    "submit": "Invia messaggio",
+    "success": "Grazie! Abbiamo ricevuto il tuo messaggio e ti risponderemo presto.",
+    "error": "Impossibile inviare il messaggio. Riprova."
   }
 }

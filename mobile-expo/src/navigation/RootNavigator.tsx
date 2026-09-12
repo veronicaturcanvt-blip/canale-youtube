@@ -14,6 +14,7 @@ import { SubscriptionDetailsScreen } from '@/screens/profile/SubscriptionDetails
 import { PersonalDataScreen } from '@/screens/profile/PersonalDataScreen';
 import { InviteFriendScreen } from '@/screens/referral/InviteFriendScreen';
 import { AchievementsScreen } from '@/screens/achievements/AchievementsScreen';
+import { SupportScreen } from '@/screens/support/SupportScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,7 @@ export function RootNavigator() {
             <Stack.Screen name="PersonalData" component={PersonalDataScreen} />
             <Stack.Screen name="InviteFriend" component={InviteFriendScreen} />
             <Stack.Screen name="Achievements" component={AchievementsScreen} />
+            <Stack.Screen name="Support" component={SupportScreen} />
           </>
         )}
       </Stack.Navigator>

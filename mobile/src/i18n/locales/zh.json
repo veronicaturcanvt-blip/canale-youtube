@@ -26,7 +26,8 @@
     "personalData": "个人信息",
     "changePin": "更改PIN码",
     "logout": "退出登录",
-    "language": "语言"
+    "language": "语言",
+    "support": "客服支持"
   },
   "auth": {
     "login": "登录",
@@ -38,5 +39,13 @@
   },
   "achievements": {
     "title": "成就"
+  },
+  "support": {
+    "title": "客服支持",
+    "subtitle": "告诉我们您遇到的困难或问题——我们会尽快回复您。",
+    "placeholder": "描述您的问题...",
+    "submit": "发送消息",
+    "success": "谢谢！我们已收到您的消息，会尽快回复。",
+    "error": "发送失败，请重试。"
   }
 }

@@ -12,6 +12,7 @@ const MENU_ITEMS = [
   { key: 'Favorites', labelKey: 'profile.favorites', emoji: '❤️', color: colors.coral },
   { key: 'SubscriptionDetails', labelKey: 'profile.subscription', emoji: '💳', color: colors.secondary },
   { key: 'PersonalData', labelKey: 'profile.personalData', emoji: '👤', color: colors.accent },
+  { key: 'Support', labelKey: 'profile.support', emoji: '💬', color: colors.secondaryDark },
 ] as const;
 
 export function ProfileScreen({ navigation }: any) {
