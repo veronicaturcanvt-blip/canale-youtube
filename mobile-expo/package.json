@@ -12,10 +12,12 @@
     "expo-video": "^57.0.4",
     "i18next": "^26.4.2",
     "react": "19.2.3",
+    "react-dom": "^19.2.3",
     "react-i18next": "^17.0.13",
     "react-native": "0.86.3",
     "react-native-safe-area-context": "^5.9.1",
     "react-native-screens": "^4.27.0",
+    "react-native-web": "^0.21.2",
     "zustand": "^5.0.15"
   },
   "devDependencies": {
