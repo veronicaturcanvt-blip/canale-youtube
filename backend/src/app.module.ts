@@ -8,6 +8,7 @@ import { ReferralsModule } from './modules/referrals/referrals.module';
 import { AchievementsModule } from './modules/achievements/achievements.module';
 import { PushModule } from './modules/push/push.module';
 import { SupportModule } from './modules/support/support.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SupportModule } from './modules/support/support.module';
     AchievementsModule,
     PushModule,
     SupportModule,
+    AdminModule,
   ],
 })
 export class AppModule {}
