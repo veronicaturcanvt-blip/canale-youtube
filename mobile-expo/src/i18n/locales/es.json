@@ -1,0 +1,37 @@
+{
+  "onboarding": {
+    "chooseTime": "¿Cuánto tiempo tienes?",
+    "chooseEquipment": "¿Qué equipo tienes?"
+  },
+  "home": {
+    "title": "Prácticas de hoy"
+  },
+  "search": {
+    "title": "Buscar y filtrar"
+  },
+  "paywall": {
+    "title": "Desbloquea prácticas ilimitadas",
+    "trial": "3 días de prueba gratis",
+    "restore": "Restaurar compras"
+  },
+  "profile": {
+    "title": "Perfil",
+    "stats": "Estadísticas",
+    "favorites": "Favoritos",
+    "subscription": "Suscripción",
+    "personalData": "Datos personales",
+    "changePin": "Cambiar PIN",
+    "logout": "Cerrar sesión"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "loginWithPin": "Iniciar sesión con PIN"
+  },
+  "referral": {
+    "title": "Invitar a un amigo",
+    "reward": "Tú recibes 3 meses gratis, tu amigo una prueba de 7 días"
+  },
+  "achievements": {
+    "title": "Logros"
+  }
+}

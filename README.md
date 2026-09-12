@@ -11,17 +11,30 @@ push) подключаются на следующих этапах.
 
 ```
 ├── docs/TZ.md          # исходное техническое задание
-├── mobile/              # мобильное приложение (React Native + TypeScript)
+├── mobile/              # "боевое" приложение (bare React Native + TypeScript)
+├── mobile-expo/          # тот же UI, но через Expo — открывается в Expo Go на телефоне
 └── backend/             # сервер (NestJS-style + Prisma)
 ```
+
+`mobile/` и `mobile-expo/` показывают один и тот же набор экранов
+(`src/screens`, `src/navigation`, ...) — файлы физически продублированы
+между двумя папками, а не шарятся автоматически. `mobile-expo/` дальше
+использует Expo-совместимые модули (`expo-video`, `expo-localization`)
+вместо нативных (`react-native-video`, `react-native-localize`), которые
+Expo Go не поддерживает. Когда экраны стабилизируются, стоит выбрать один
+путь: либо `mobile/` (полный контроль, DRM-видео, но нужны Xcode/Android
+Studio), либо перейти на Expo целиком (проще пересобирать, но DRM
+потребует `expo-video`'s DRM API или EAS Build с кастомным dev client) —
+и удалить вторую папку, чтобы не поддерживать дубликаты вручную.
 
 ## Стек
 
 | Часть          | Технология                                   |
 |----------------|-----------------------------------------------|
-| Мобильное приложение | React Native + TypeScript, React Navigation |
+| Мобильное приложение (`mobile/`) | React Native + TypeScript, React Navigation |
+| Мобильное приложение (`mobile-expo/`) | Expo (managed) + TypeScript, React Navigation |
 | Локализация    | i18next (IT/EN/RU/ES/ZH/JA)                   |
-| Видео          | react-native-video (заглушка под HLS/DASH + DRM) |
+| Видео          | react-native-video в `mobile/` / expo-video в `mobile-expo/` (заглушка под HLS/DASH + DRM) |
 | Сервер         | Node.js + NestJS-style модули                 |
 | База данных    | PostgreSQL + Prisma ORM                       |
 | Оплата         | Stripe / App Store / Google Play billing (заглушки) |
@@ -41,12 +54,27 @@ push) подключаются на следующих этапах.
 ```bash
 npm install
 
-# мобильное приложение (нужен настроенный React Native окружение)
+# мобильное приложение "мobile/" (нужен настроенный React Native окружение —
+# Xcode/Android Studio для запуска на симуляторе)
 npm run mobile
 
 # сервер
 npm run backend
 ```
+
+### Быстрый просмотр экранов через Expo Go (без Xcode/Android Studio)
+
+```bash
+cd mobile-expo
+npm install
+npx expo start
+```
+
+В терминале появится QR-код. Установите приложение **Expo Go** на телефон
+(App Store / Google Play), отсканируйте код камерой (iOS) или из самого
+Expo Go (Android) — приложение откроется прямо на телефоне, живой хот-релоад
+при правке кода. Если телефон в другой сети, чем компьютер, добавьте флаг
+`--tunnel` (`npx expo start --tunnel`).
 
 ## Дальнейшие шаги
 
