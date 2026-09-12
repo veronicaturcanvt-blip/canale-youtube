@@ -1,39 +1,44 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { strictValidationPipe } from '../../common/strict-validation.pipe';
+import { AuthenticatedUser } from '../auth/auth.types';
+import { CurrentUser } from '../auth/current-user.decorator';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UsersService } from './users.service';
 
+@UseGuards(JwtAuthGuard)
+@UsePipes(strictValidationPipe)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('me')
-  getProfile() {
-    // TODO: read userId from the authenticated request (JWT guard).
-    return this.usersService.getProfile('me');
+  getProfile(@CurrentUser() user: AuthenticatedUser) {
+    return this.usersService.getProfile(user.userId);
   }
 
   @Patch('me')
-  updateProfile(@Body() dto: UpdateProfileDto) {
-    return this.usersService.updateProfile('me', dto);
+  updateProfile(@CurrentUser() user: AuthenticatedUser, @Body() dto: UpdateProfileDto) {
+    return this.usersService.updateProfile(user.userId, dto);
   }
 
   @Get('me/stats')
-  getStats() {
-    return this.usersService.getStats('me');
+  getStats(@CurrentUser() user: AuthenticatedUser) {
+    return this.usersService.getStats(user.userId);
   }
 
   @Get('me/favorites')
-  getFavorites() {
-    return this.usersService.getFavorites('me');
+  getFavorites(@CurrentUser() user: AuthenticatedUser) {
+    return this.usersService.getFavorites(user.userId);
   }
 
   @Post('me/favorites/:practiceId')
-  addFavorite(@Param('practiceId') _practiceId: string) {
+  addFavorite(@CurrentUser() user: AuthenticatedUser, @Param('practiceId') _practiceId: string) {
     // TODO: create Favorite row.
   }
 
   @Delete('me')
-  deleteAccount() {
-    return this.usersService.deleteAccount('me');
+  deleteAccount(@CurrentUser() user: AuthenticatedUser) {
+    return this.usersService.deleteAccount(user.userId);
   }
 }
