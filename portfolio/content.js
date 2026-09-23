@@ -34,7 +34,11 @@ window.SITE_CONTENT = {
       },
       about: {
         title: 'Обо мне',
-        text: 'Я Вероника, для интернета — vero.tur. Живу в Милане и делаю короткие рекламные ролики и мультяшные истории для Reels, Shorts и TikTok. Нейросети рисуют картинку, а я отвечаю за то, чтобы её хотелось досмотреть до конца. И пересмотреть.',
+        text: [
+          'Я Вероника, для интернета — vero.tur. Живу в Милане и делаю видео, которые продают: рекламные ролики и визуальные истории для брендов в Reels, Shorts и TikTok. Беру на себя всё, от идеи и сценария до готового ролика. Без съёмочной группы, аренды локаций и недель ожидания.',
+          'Нейросети рисуют картинку, а я отвечаю за то, чтобы ваш продукт запомнили: ролик досмотрели до конца, пересмотрели и захотели купить.',
+        ],
+        cta: 'Обсудить проект',
         facts: ['Милан', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
       },
       works: { title: 'Работы', soon: 'Скоро', soonText: 'Ролик уже в монтаже. Загляните чуть позже.', prev: 'Назад', next: 'Вперёд', open: 'Открыть работу' },
@@ -62,7 +66,11 @@ window.SITE_CONTENT = {
       },
       about: {
         title: 'Chi sono',
-        text: 'Sono Veronica, online vero.tur. Vivo a Milano e creo spot brevi e storie animate per Reels, Shorts e TikTok. Le reti neurali disegnano l’immagine, io faccio in modo che tu voglia guardarla fino alla fine. E poi riguardarla.',
+        text: [
+          'Sono Veronica, online vero.tur. Vivo a Milano e creo video che vendono: spot pubblicitari e storie visive per brand su Reels, Shorts e TikTok. Mi occupo di tutto, dall’idea e la sceneggiatura fino al video finito. Senza troupe, affitto di location o settimane di attesa.',
+          'L’IA disegna l’immagine, io faccio in modo che il vostro prodotto resti in testa: che il video venga guardato fino alla fine, rivisto e che faccia venire voglia di comprare.',
+        ],
+        cta: 'Parliamo del tuo progetto',
         facts: ['Milano', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
       },
       works: { title: 'Lavori', soon: 'Presto', soonText: 'Il video è in montaggio. Torna tra poco.', prev: 'Indietro', next: 'Avanti', open: 'Apri il lavoro' },
@@ -90,7 +98,11 @@ window.SITE_CONTENT = {
       },
       about: {
         title: 'About me',
-        text: 'I’m Veronica, vero.tur online. I live in Milan and make short ads and animated stories for Reels, Shorts and TikTok. Neural networks draw the picture; I make sure you want to watch it to the end. And then again.',
+        text: [
+          'I’m Veronica, online vero.tur. I live in Milan and make videos that sell: ads and visual stories for brands on Reels, Shorts and TikTok. I handle everything, from the idea and script to the finished video. No film crew, no location rentals, no weeks of waiting.',
+          'AI draws the picture. I make sure your product sticks: people watch to the end, watch again and want to buy.',
+        ],
+        cta: 'Let’s talk about your project',
         facts: ['Milan', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
       },
       works: { title: 'Work', soon: 'Soon', soonText: 'This one is still in the edit. Check back soon.', prev: 'Previous', next: 'Next', open: 'Open work' },

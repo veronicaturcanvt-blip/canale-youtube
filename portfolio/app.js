@@ -79,6 +79,7 @@
     $$('[data-i18n-aria]').forEach((n) => { n.setAttribute('aria-label', t(n.dataset.i18nAria)); });
     $$('.lang [data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     $('.skip').textContent = t('nav.works');
+    $('#aboutText').replaceChildren(...[].concat(t('about.text')).map((p) => el('p', { text: p })));
     $('#aboutFacts').replaceChildren(...t('about.facts').map((f) => el('li', { text: f })));
   }
 
