@@ -343,10 +343,7 @@
     modal.removeAttribute('aria-label');
     document.body.style.overflow = '';
     current = null;
-    if (heroInView && !reducedMotion && !$('#hero').classList.contains('no-video')) {
-      const p = heroVideo.play();
-      if (p && p.catch) p.catch(() => {});
-    }
+    syncHero();
   }
 
   modal.addEventListener('close', onClosed);
@@ -357,13 +354,21 @@
 
   /* ---------------- Hero video ---------------- */
   let heroInView = true;
+  let heroPausedByUser = reducedMotion;
+  const heroToggle = $('#heroToggle');
+  const canPlayHero = () => heroInView && !heroPausedByUser && !modal.open && !$('#hero').classList.contains('no-video');
+  function syncHero() {
+    heroToggle.setAttribute('aria-pressed', String(heroPausedByUser));
+    if (canPlayHero()) { const p = heroVideo.play(); if (p && p.catch) p.catch(() => {}); } else heroVideo.pause();
+  }
+  heroToggle.addEventListener('click', () => { heroPausedByUser = !heroPausedByUser; syncHero(); });
   heroVideo.addEventListener('error', () => $('#hero').classList.add('no-video'));
-  if (reducedMotion) { heroVideo.removeAttribute('autoplay'); heroVideo.pause(); }
+  if (reducedMotion) heroVideo.removeAttribute('autoplay');
+  syncHero();
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([e]) => {
       heroInView = e.isIntersecting;
-      if (reducedMotion || modal.open || $('#hero').classList.contains('no-video')) return;
-      if (heroInView) { const p = heroVideo.play(); if (p && p.catch) p.catch(() => {}); } else heroVideo.pause();
+      if (!modal.open) syncHero();
     }, { threshold: 0.05 }).observe($('#hero'));
   }
 

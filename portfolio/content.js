@@ -29,6 +29,8 @@ window.SITE_CONTENT = {
         tagline: 'Рекламу снимает ИИ. Историю и характер придумываю я.',
         showreel: 'Смотреть шоурил',
         about: 'Обо мне',
+        pause: 'Остановить фоновое видео',
+        play: 'Включить фоновое видео',
       },
       about: {
         title: 'Обо мне',
@@ -55,6 +57,8 @@ window.SITE_CONTENT = {
         tagline: 'Gli spot li gira l’IA. Storia e carattere li invento io.',
         showreel: 'Guarda lo showreel',
         about: 'Chi sono',
+        pause: 'Metti in pausa il video di sfondo',
+        play: 'Riproduci il video di sfondo',
       },
       about: {
         title: 'Chi sono',
@@ -81,6 +85,8 @@ window.SITE_CONTENT = {
         tagline: 'AI shoots the ads. I write the story and the soul.',
         showreel: 'Watch showreel',
         about: 'About me',
+        pause: 'Pause background video',
+        play: 'Play background video',
       },
       about: {
         title: 'About me',
