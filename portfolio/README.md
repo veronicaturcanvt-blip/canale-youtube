@@ -31,13 +31,15 @@
 Шоурил в шапке сайта: `videos/showreel.mp4` + `posters/showreel.jpg`.
 Ссылки на контакты — в `content.js` → `links`.
 
-## Деплой на Vercel
+## Публикация
 
-1. Зайдите на vercel.com → **Add New… → Project** → выберите этот репозиторий на GitHub.
-2. **Root Directory** → `portfolio`. Framework Preset: **Other**. Build Command и Output Directory оставьте пустыми.
-3. **Deploy**. После каждого push в ветку сайт обновится сам.
+Сайт опубликован на GitHub Pages: https://veronicaturcanvt-blip.github.io/canale-youtube/
 
-Без GitHub: `npx vercel` из папки `portfolio` (или перетащите папку на app.netlify.com/drop для Netlify).
+Обновляется сам: при каждом изменении в папке `portfolio/` (в ветке `claude/gifted-darwin-ui1rxp`
+или в основной ветке) GitHub Actions копирует файлы в ветку `gh-pages`, и через 1–2 минуты сайт
+показывает новую версию. Настройка — `.github/workflows/publish-portfolio.yml`.
+Ход публикации виден на GitHub во вкладке **Actions** → «Publish portfolio».
+Ветку `gh-pages` вручную править не нужно — её перезаписывает автоматика.
 
 Совет: если видео тяжёлые (больше 50–100 МБ в сумме), лучше не хранить их в git, а загрузить на хостинг видео (Mux, Cloudflare Stream) и прописать ссылки.
 
