@@ -212,9 +212,9 @@ window.SITE_CONTENT = {
     {
       title: { ru: 'Генерация видео', it: 'Generazione video', en: 'Video generation' },
       text: {
-        ru: 'Десятки дублей. Беру тот, где у героя пять пальцев и нужная эмоция.',
-        it: 'Decine di take. Tengo quello con cinque dita e l’emozione giusta.',
-        en: 'Dozens of takes. I keep the one with five fingers and the right feeling.',
+        ru: 'Здесь картинки начинают двигаться. Ставлю каждый кадр как на съёмочной площадке, только без кейтеринга. И слежу, чтобы герой к концу сцены остался собой.',
+        it: 'Qui le immagini iniziano a muoversi. Dirigo ogni inquadratura come su un vero set, solo senza catering. E controllo che il protagonista resti se stesso fino alla fine della scena.',
+        en: 'This is where images start to move. I stage every shot like on a real film set, just without the catering. And I make sure the hero is still the same person by the end of the scene.',
       },
     },
     {
