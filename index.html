@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>VERO+ — Veronica, AI video creator</title>
+  <meta name="description" content="Short ads and animated stories made with AI. Milan.">
+  <meta name="theme-color" content="#050505">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23050505'/%3E%3Cpath d='M9 9l7 15 7-15' fill='none' stroke='%23f97316' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,800;0,900;1,400;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#works">Skip to content</a>
+
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="logo" href="#top" aria-label="VERO+">VERO<span>+</span></a>
+
+      <nav class="nav" id="nav" aria-label="Main">
+        <a href="#works" data-i18n="nav.works">Work</a>
+        <a href="#process" data-i18n="nav.process">Process</a>
+        <a href="#contacts" data-i18n="nav.contacts">Contact</a>
+      </nav>
+
+      <div class="header__end">
+        <div class="lang" role="group" data-i18n-aria="nav.lang" aria-label="Language">
+          <button type="button" data-lang="it">IT</button>
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="ru">RU</button>
+        </div>
+        <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" data-i18n-aria="nav.menu" aria-label="Menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <video class="hero__video" id="heroVideo" src="videos/showreel.mp4" poster="posters/showreel.jpg"
+             autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+      <div class="hero__fallback" aria-hidden="true"></div>
+      <div class="hero__vignette" aria-hidden="true"></div>
+
+      <div class="hero__content container">
+        <p class="kicker" data-i18n="hero.kicker">AI video creator · Milan</p>
+        <h1 class="hero__name">
+          <span data-i18n="hero.name">Veronica</span>
+          <span class="hero__nick">vero.tur</span>
+        </h1>
+        <p class="hero__tagline" data-i18n="hero.tagline">AI shoots the ads. I write the story and the soul.</p>
+        <div class="hero__actions">
+          <button class="btn btn--primary" id="showreelBtn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>
+            <span data-i18n="hero.showreel">Watch showreel</span>
+          </button>
+          <a class="btn btn--ghost" href="#about" data-i18n="hero.about">About me</a>
+        </div>
+      </div>
+      <a class="hero__scroll" href="#about" aria-hidden="true" tabindex="-1"></a>
+      <button class="hero__toggle" id="heroToggle" type="button" aria-pressed="false" data-i18n-aria="hero.pause" aria-label="Pause background video">
+        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+      </button>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about section" id="about">
+      <div class="container about__inner">
+        <h2 class="section__title" data-i18n="about.title">About me</h2>
+        <div>
+          <p class="about__text" data-i18n="about.text"></p>
+          <ul class="about__facts" id="aboutFacts"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKS -->
+    <section class="works section" id="works">
+      <div class="container">
+        <h2 class="section__title" data-i18n="works.title">Work</h2>
+      </div>
+      <div id="rows"></div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process section" id="process">
+      <div class="container">
+        <h2 class="section__title" data-i18n="process.title">Process</h2>
+        <p class="section__subtitle" data-i18n="process.subtitle"></p>
+        <ol class="episodes" id="episodes"></ol>
+      </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="tools section" id="tools">
+      <div class="container">
+        <h2 class="section__title" data-i18n="tools.title">Toolkit</h2>
+        <p class="section__subtitle" data-i18n="tools.subtitle"></p>
+        <ul class="tools__list" id="toolsList"></ul>
+      </div>
+    </section>
+
+    <!-- AUDIENCE -->
+    <section class="audience section" id="audience">
+      <div class="container">
+        <h2 class="section__title" data-i18n="audience.title">Who I work with</h2>
+        <div class="audience__grid" id="audienceGrid"></div>
+      </div>
+    </section>
+
+    <!-- CONTACTS -->
+    <section class="contacts section" id="contacts">
+      <div class="container">
+        <h2 class="section__title section__title--xl" data-i18n="contacts.title">Contact</h2>
+        <p class="section__subtitle" data-i18n="contacts.subtitle"></p>
+        <div class="contacts__grid" id="contactsGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="logo logo--sm">VERO<span>+</span></span>
+      <span data-i18n="footer"></span>
+      <span>© <span id="year"></span> vero.tur</span>
+    </div>
+  </footer>
+
+  <!-- PLAYER MODAL -->
+  <dialog class="modal" id="modal">
+    <div class="modal__box">
+      <button class="modal__close" id="modalClose" type="button" data-i18n-aria="modal.close" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal__media" id="modalMedia">
+        <video id="modalVideo" controls playsinline preload="none"></video>
+        <div class="soon soon--modal">
+          <span class="soon__mark">VERO<span>+</span></span>
+          <span class="soon__label" data-i18n="works.soon">Soon</span>
+          <span class="soon__text" data-i18n="works.soonText"></span>
+        </div>
+      </div>
+      <div class="modal__info" id="modalInfo"></div>
+    </div>
+  </dialog>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
