@@ -169,10 +169,10 @@ window.SITE_CONTENT = {
       tools: ['Seedance', 'Seedream', 'Suno', 'CapCut'],
     },
     {
-      id: 'shelby',
+      id: 'pan-ladus',
       category: 'brands',
-      brand: 'Shelby Mustang',
-      title: { ru: 'Перешив салона Shelby Mustang', it: 'Nuovi interni per Shelby Mustang', en: 'Shelby Mustang interior refit' },
+      brand: 'Pan Ladus',
+      title: { ru: 'Pan Ladus', it: 'Pan Ladus', en: 'Pan Ladus' },
       task: { ru: 'Описание задачи скоро появится.', it: 'La descrizione dell’obiettivo arriverà presto.', en: 'Brief description coming soon.' },
       done: { ru: 'Здесь будет рассказ о том, что сделано.', it: 'Qui racconterò cosa ho fatto.', en: 'The making-of story goes here.' },
       tools: ['Veo', 'GPT Image', 'CapCut'],
