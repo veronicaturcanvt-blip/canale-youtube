@@ -178,6 +178,23 @@ window.SITE_CONTENT = {
       tools: ['Veo', 'GPT Image', 'CapCut'],
     },
     {
+      id: 'bruler-damour',
+      category: 'brands',
+      brand: 'Brûler d’Amour',
+      title: { ru: 'Brûler d’Amour', it: 'Brûler d’Amour', en: 'Brûler d’Amour' },
+      task: {
+        ru: 'Имиджевый ролик для бренда одежды: показать новую зимнюю коллекцию через живую историю, а не через каталог.',
+        it: 'Video d’immagine per un brand di abbigliamento: mostrare la nuova collezione invernale con una storia vera, non con un catalogo.',
+        en: 'Brand film for a clothing label: show the new winter collection through a story, not a catalogue.',
+      },
+      done: {
+        ru: 'Придумала историю любви: сообщение «Brûler?», выход из дома с пуделем, встреча с парнем, снежные горы и подарок-брелок. Одежда клиента узнаётся в каждом кадре, а ритм идёт волнами: медленно, резко, снова медленно.',
+        it: 'Ho inventato una storia d’amore: il messaggio «Brûler?», l’uscita con il barboncino, l’incontro con lui, la montagna innevata e il portachiavi in regalo. I capi del cliente si riconoscono in ogni inquadratura e il ritmo va a ondate: lento, brusco, di nuovo lento.',
+        en: 'I wrote a love story: a “Brûler?” text, heading out with the poodle, meeting him, snowy mountains and a keychain gift. The client’s pieces are recognisable in every shot, and the pacing comes in waves: slow, sudden, slow again.',
+      },
+      tools: ['GPT Image', 'Seedance', 'CapCut'],
+    },
+    {
       id: 'unbeatable',
       category: 'animation',
       brand: 'UNBEATABLE GIRLS',
