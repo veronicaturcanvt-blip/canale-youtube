@@ -144,11 +144,19 @@ window.SITE_CONTENT = {
     {
       id: 'candles',
       category: 'brands',
-      brand: 'Ritual candles',
-      title: { ru: 'Ритуальные свечи', it: 'Candele rituali', en: 'Ritual candles' },
-      task: { ru: 'Описание задачи скоро появится.', it: 'La descrizione dell’obiettivo arriverà presto.', en: 'Brief description coming soon.' },
-      done: { ru: 'Здесь будет рассказ о том, что сделано.', it: 'Qui racconterò cosa ho fatto.', en: 'The making-of story goes here.' },
-      tools: ['Seedance', 'Grok Image', 'Suno', 'CapCut'],
+      brand: 'Ritual Candles',
+      title: { ru: 'Ritual Candles', it: 'Ritual Candles', en: 'Ritual Candles' },
+      task: {
+        ru: 'Рекламный ролик для ритуальных свечей ручной работы: передать атмосферу таинства и показать, что каждая свеча сделана вручную.',
+        it: 'Spot per candele rituali fatte a mano: trasmettere un’atmosfera di mistero e mostrare che ogni candela è fatta a mano.',
+        en: 'An ad for handmade ritual candles: capture a sense of mystery and show that every candle is made by hand.',
+      },
+      done: {
+        ru: 'Показала весь путь свечи: травы, воск, форма, первое пламя и упаковка. Тёплый свет, крупные планы рук и закадровый голос делают ролик похожим на старинный обряд.',
+        it: 'Ho mostrato tutto il percorso della candela: erbe, cera, stampo, la prima fiamma e la confezione. Luce calda, primi piani delle mani e voce fuori campo lo fanno sembrare un antico rituale.',
+        en: 'I showed the candle’s whole journey: herbs, wax, mould, the first flame and the packaging. Warm light, close-ups of hands and a voiceover make it feel like an old ritual.',
+      },
+      tools: ['Seedance', 'Grok Image', 'MiniMax', 'CapCut'],
     },
     {
       id: 'latte',
