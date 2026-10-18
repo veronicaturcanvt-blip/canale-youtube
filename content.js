@@ -37,6 +37,7 @@ window.SITE_CONTENT = {
         text: [
           'Я Вероника, для интернета — vero.tur. Живу в Милане и делаю видео, которые продают: рекламные ролики и визуальные истории для брендов в Reels, Shorts и TikTok. Беру на себя всё, от идеи и сценария до готового ролика. Без съёмочной группы, аренды локаций и недель ожидания.',
           'Нейросети рисуют картинку, а я отвечаю за то, чтобы ваш продукт запомнили: ролик досмотрели до конца, пересмотрели и захотели купить.',
+          'Каждый день слежу за новыми нейросетями и трендами соцсетей, поэтому ваши ролики выглядят как сегодня, а не как год назад.',
         ],
         cta: 'Обсудить проект',
         facts: ['Милан', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
@@ -69,6 +70,7 @@ window.SITE_CONTENT = {
         text: [
           'Sono Veronica, online vero.tur. Vivo a Milano e creo video che vendono: spot pubblicitari e storie visive per brand su Reels, Shorts e TikTok. Mi occupo di tutto, dall’idea e la sceneggiatura fino al video finito. Senza troupe, affitto di location o settimane di attesa.',
           'L’IA disegna l’immagine, io faccio in modo che il vostro prodotto resti in testa: che il video venga guardato fino alla fine, rivisto e che faccia venire voglia di comprare.',
+          'Seguo ogni giorno le nuove IA e i trend dei social, così i vostri video sembrano di oggi, non dell’anno scorso.',
         ],
         cta: 'Parliamo del tuo progetto',
         facts: ['Milano', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
@@ -101,6 +103,7 @@ window.SITE_CONTENT = {
         text: [
           'I’m Veronica, online vero.tur. I live in Milan and make videos that sell: ads and visual stories for brands on Reels, Shorts and TikTok. I handle everything, from the idea and script to the finished video. No film crew, no location rentals, no weeks of waiting.',
           'AI draws the picture. I make sure your product sticks: people watch to the end, watch again and want to buy.',
+          'I follow new AI tools and social media trends every day, so your videos look like today, not last year.',
         ],
         cta: 'Let’s talk about your project',
         facts: ['Milan', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
