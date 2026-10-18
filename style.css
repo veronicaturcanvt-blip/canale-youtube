@@ -378,7 +378,9 @@ h1, h2, h3, p { margin: 0; }
   font: 900 italic 110px/1 var(--font-display); color: rgba(245,242,238,.04); letter-spacing: -.03em;
 }
 .episode > :not(.episode__bg) { position: relative; z-index: 1; }
-.episode--last { background: linear-gradient(160deg, rgba(var(--accent-rgb),.16), rgba(var(--pink-rgb),.08) 55%, var(--bg-2) 85%); border-color: rgba(var(--accent-rgb),.3); }
+.episode { background: linear-gradient(160deg, rgba(var(--accent-rgb),.16), rgba(var(--pink-rgb),.08) 55%, var(--bg-2) 85%); border-color: rgba(var(--accent-rgb),.3); }
+.episode:nth-child(even) { background: linear-gradient(160deg, rgba(var(--pink-rgb),.16), rgba(var(--accent-rgb),.08) 55%, var(--bg-2) 85%); border-color: rgba(var(--pink-rgb),.3); }
+.episode--last { background: linear-gradient(160deg, rgba(var(--accent-rgb),.22), rgba(var(--pink-rgb),.14) 55%, var(--bg-2) 90%); border-color: rgba(var(--accent-rgb),.4); }
 
 /* ============ Tools ============ */
 .tools__list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
