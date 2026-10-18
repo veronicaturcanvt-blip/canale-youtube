@@ -281,21 +281,20 @@ h1, h2, h3, p { margin: 0; }
 .row__nav button:disabled { opacity: .3; cursor: default; }
 .row__nav svg { width: 18px; height: 18px; }
 
+/* Grid: 5 per row on desktop, wraps to new rows (no sideways scrolling) */
 .track {
-  display: flex; gap: 12px;
-  overflow-x: auto; overscroll-behavior-x: contain;
   --edge: max(var(--gutter), calc((100vw - 1320px) / 2 + var(--gutter)));
-  scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge);
-  padding: 8px var(--edge) 20px;
-  scrollbar-width: none;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 12px; padding: 8px var(--edge) 20px;
 }
-.track::-webkit-scrollbar { display: none; }
-@media (min-width: 720px) { .track { gap: 18px; } }
+@media (min-width: 600px) { .track { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 16px; } }
+@media (min-width: 900px) { .track { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .track { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px 18px; } }
+.row__nav, .row__nav { display: none !important; }
 
 /* ============ Card ============ */
 .card {
-  flex: 0 0 auto; width: clamp(150px, 42vw, 240px);
-  scroll-snap-align: start; text-align: left;
+  min-width: 0; width: 100%; text-align: left;
   display: flex; flex-direction: column; gap: 10px;
 }
 .card__media {
