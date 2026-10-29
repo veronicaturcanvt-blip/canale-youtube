@@ -220,9 +220,9 @@ window.SITE_CONTENT = {
     {
       title: { ru: 'Идея', it: 'Idea', en: 'Idea' },
       text: {
-        ru: 'Ищу, за что зритель зацепится в первые две секунды. Остальное — детали.',
-        it: 'Cerco il gancio che ferma il pollice nei primi due secondi. Il resto sono dettagli.',
-        en: 'I hunt for the hook that stops the thumb in two seconds. The rest is details.',
+        ru: 'Строю каждый ролик в три шага: крючок, который останавливает палец в первые две секунды, действие, где продукт показывает себя в деле, и призыв к покупке, мимо которого не пройти.',
+        it: 'Costruisco ogni video in tre tempi: un gancio che ferma il pollice nei primi due secondi, un’azione che mostra il prodotto all’opera e un invito all’acquisto difficile da ignorare.',
+        en: 'Every video is built in three beats: a hook that stops the thumb in two seconds, an action that shows the product at work, and a call to buy that’s hard to ignore.',
       },
     },
     {
