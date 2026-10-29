@@ -220,9 +220,9 @@ window.SITE_CONTENT = {
     {
       title: { ru: 'Идея', it: 'Idea', en: 'Idea' },
       text: {
-        ru: 'Строю каждый ролик в три шага: крючок, который останавливает палец в первые две секунды, действие, где продукт показывает себя в деле, и призыв к покупке, мимо которого не пройти.',
-        it: 'Costruisco ogni video in tre tempi: un gancio che ferma il pollice nei primi due secondi, un’azione che mostra il prodotto all’opera e un invito all’acquisto difficile da ignorare.',
-        en: 'Every video is built in three beats: a hook that stops the thumb in two seconds, an action that shows the product at work, and a call to buy that’s hard to ignore.',
+        ru: 'Хук: останавливаю палец в первые 2 секунды.\nДействие: продукт показывает себя в деле.\nПризыв к покупке: такой, мимо которого не пройти.',
+        it: 'Hook: fermo il pollice nei primi 2 secondi.\nAzione: il prodotto si mostra all’opera.\nCall to action: un invito all’acquisto difficile da ignorare.',
+        en: 'Hook: stop the thumb in the first 2 seconds.\nAction: show the product at work.\nCall to action: a reason to buy that’s hard to ignore.',
       },
     },
     {

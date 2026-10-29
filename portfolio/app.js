@@ -214,7 +214,12 @@
         el('span', { class: 'episode__bg', 'aria-hidden': 'true', text: num }),
         el('span', { class: 'episode__num', text: `EP.${num}` }),
         el('h3', { class: 'episode__title', text: L(p.title) }),
-        el('p', { class: 'episode__text', text: L(p.text) }),
+        L(p.text).includes('\n')
+          ? el('ul', { class: 'episode__text episode__steps' }, L(p.text).split('\n').map((line) => {
+              const i = line.indexOf(': ');
+              return el('li', {}, i > 0 ? [el('strong', { text: line.slice(0, i) }), line.charAt(i + 2).toUpperCase() + line.slice(i + 3)] : [line]);
+            }))
+          : el('p', { class: 'episode__text', text: L(p.text) }),
       ]);
     }));
   }

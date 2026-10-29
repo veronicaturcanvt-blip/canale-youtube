@@ -373,6 +373,8 @@ h1, h2, h3, p { margin: 0; }
 }
 .episode__title { font: 700 21px/1.2 var(--font-display); margin: 10px 0 8px; letter-spacing: -.01em; }
 .episode__text { color: var(--muted); font-size: 15px; }
+.episode__steps { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.episode__steps strong { display: block; color: var(--text); font-weight: 600; font-size: 13px; letter-spacing: .02em; }
 .episode__bg {
   position: absolute; right: -6px; bottom: -22px; z-index: 0; pointer-events: none;
   font: 900 italic 110px/1 var(--font-display); color: rgba(245,242,238,.04); letter-spacing: -.03em;
