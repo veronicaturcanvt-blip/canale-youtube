@@ -522,3 +522,7 @@ h1, h2, h3, p { margin: 0; }
 .contact__label { display: flex; flex-direction: column; line-height: 1.2; }
 .contact__handle { font-size: 13px; font-weight: 500; color: var(--muted); overflow-wrap: anywhere; }
 .contact:hover .contact__handle { color: inherit; opacity: .8; }
+
+.about__study { margin-top: 22px; padding: 14px 18px; border-left: 2px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; background: linear-gradient(90deg, rgba(var(--accent-rgb),.10), rgba(var(--pink-rgb),.05) 70%, transparent); }
+.about__study-title { display: block; color: var(--text); font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.about__study p { margin: 0; font-size: 15px; }

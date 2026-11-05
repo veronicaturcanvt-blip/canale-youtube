@@ -41,6 +41,10 @@ window.SITE_CONTENT = {
           'Нейросети рисуют картинку, а я отвечаю за то, чтобы ваш продукт запомнили: ролик досмотрели до конца, пересмотрели и захотели купить.',
           'Всегда в курсе новинок искусственного интеллекта и социальных сетей.',
         ],
+        study: {
+          title: 'Непрерывное обучение AI Content Creation · 2026 – сейчас',
+          text: 'Постоянно осваиваю новые инструменты генерации видео и изображений, тренды соцсетей и практические проекты для реальных брендов.',
+        },
         cta: 'Обсудить проект',
         facts: ['Милан', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
       },
@@ -74,6 +78,10 @@ window.SITE_CONTENT = {
           'L’IA disegna l’immagine, io faccio in modo che il vostro prodotto resti in testa: che il video venga guardato fino alla fine, rivisto e che faccia venire voglia di comprare.',
           'Sempre aggiornata sulle novità dell’intelligenza artificiale e dei social media.',
         ],
+        study: {
+          title: 'Formazione continua in AI Content Creation · 2026 – in corso',
+          text: 'Aggiornamento costante su nuovi strumenti di generazione video e immagini, trend dei social e progetti pratici per brand reali.',
+        },
         cta: 'Parliamo del tuo progetto',
         facts: ['Milano', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
       },
@@ -107,6 +115,10 @@ window.SITE_CONTENT = {
           'AI draws the picture. I make sure your product sticks: people watch to the end, watch again and want to buy.',
           'Always up to date with the latest in artificial intelligence and social media.',
         ],
+        study: {
+          title: 'Ongoing training in AI Content Creation · 2026 – present',
+          text: 'Constantly learning new video and image generation tools, social media trends and hands-on projects for real brands.',
+        },
         cta: 'Let’s talk about your project',
         facts: ['Milan', 'IT · EN · RU', 'Reels · Shorts · TikTok'],
       },
