@@ -434,7 +434,7 @@ h1, h2, h3, p { margin: 0; }
 }
 .contacts__grid { display: grid; gap: 10px; margin-top: 36px; }
 @media (min-width: 600px) { .contacts__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1000px) { .contacts__grid { grid-template-columns: repeat(5, 1fr); gap: 14px; } }
+@media (min-width: 1000px) { .contacts__grid { grid-template-columns: repeat(3, 1fr); gap: 14px; } }
 .contact {
   display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 14px 20px;
   border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--line);
@@ -519,5 +519,5 @@ h1, h2, h3, p { margin: 0; }
 }
 
 .contact__label { display: flex; flex-direction: column; line-height: 1.2; }
-.contact__handle { font-size: 13px; font-weight: 500; color: var(--muted); }
+.contact__handle { font-size: 13px; font-weight: 500; color: var(--muted); overflow-wrap: anywhere; }
 .contact:hover .contact__handle { color: inherit; opacity: .8; }

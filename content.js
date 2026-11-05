@@ -10,7 +10,8 @@ window.SITE_CONTENT = {
   // Contact links. A contact with an empty link is hidden on the page.
   links: {
     whatsapp: 'https://wa.me/393518063989',
-    telegram: '',        // TODO: t.me/<username>
+    telegram: 'https://t.me/bonitavero',
+    email: 'mailto:veronica.turcan.vt@gmail.com',
     instagram: 'https://www.instagram.com/veronica_x_tur/',
     instagram2: 'https://www.instagram.com/verokek.ai/',
     tiktok: 'https://www.tiktok.com/@vero.tur',
@@ -139,6 +140,7 @@ window.SITE_CONTENT = {
     },
     {
       id: 'hair-dye',
+      draft: true, // no video yet: hidden on the page until the video is uploaded
       category: 'brands',
       brand: 'Hair color',
       title: { ru: 'Краска для волос', it: 'Tinta per capelli', en: 'Hair dye' },
@@ -165,6 +167,7 @@ window.SITE_CONTENT = {
     },
     {
       id: 'latte',
+      draft: true, // no video yet: hidden on the page until the video is uploaded
       category: 'brands',
       brand: 'Café',
       title: { ru: 'Кофейня и латте', it: 'Caffetteria e latte', en: 'Café & latte' },
@@ -174,6 +177,7 @@ window.SITE_CONTENT = {
     },
     {
       id: 'aventon',
+      draft: true, // no video yet: hidden on the page until the video is uploaded
       category: 'brands',
       brand: 'Aventon',
       title: { ru: 'Электровелосипеды Aventon', it: 'E-bike Aventon', en: 'Aventon e-bikes' },
@@ -209,6 +213,7 @@ window.SITE_CONTENT = {
     },
     {
       id: 'unbeatable',
+      draft: true, // no video yet: hidden on the page until the video is uploaded
       category: 'animation',
       brand: 'UNBEATABLE GIRLS',
       title: { ru: 'UNBEATABLE GIRLS', it: 'UNBEATABLE GIRLS', en: 'UNBEATABLE GIRLS' },
@@ -218,6 +223,7 @@ window.SITE_CONTENT = {
     },
     {
       id: 'verokek',
+      draft: true, // no video yet: hidden on the page until the video is uploaded
       category: 'animation',
       brand: 'Vero.Kek',
       title: { ru: 'Vero.Kek', it: 'Vero.Kek', en: 'Vero.Kek' },
@@ -343,7 +349,8 @@ window.SITE_CONTENT = {
 
   contacts: [
     { id: 'whatsapp', label: 'WhatsApp', handle: '+39 351 806 3989' },
-    { id: 'telegram', label: 'Telegram' },
+    { id: 'telegram', label: 'Telegram', handle: '@bonitavero' },
+    { id: 'email', label: 'Email', handle: 'veronica.turcan.vt@gmail.com' },
     { id: 'instagram', icon: 'instagram', label: 'Instagram', handle: '@veronica_x_tur' },
     { id: 'instagram2', icon: 'instagram', label: 'Instagram', handle: '@verokek.ai' },
     { id: 'tiktok', label: 'TikTok', handle: '@vero.tur' },

@@ -129,7 +129,8 @@
     const rows = $('#rows');
     rows.replaceChildren();
     for (const cat of C.categories) {
-      const items = C.works.filter((w) => w.category === cat.id);
+      const items = C.works.filter((w) => w.category === cat.id && !w.draft);
+      if (!items.length) continue; // categories with no published work stay hidden
       const track = el('div', { class: 'track', role: 'list' });
       if (items.length) items.forEach((w) => track.append(workCard(w)));
       else for (let i = 0; i < 3; i++) track.append(ghostCard());
