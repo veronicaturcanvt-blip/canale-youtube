@@ -250,12 +250,17 @@
           ])))
         : null,
     ])));
-    $('#toolsList').replaceChildren(...C.tools.map((tool) => el('li', { class: 'tool reveal' }, [
-      el('span', { class: 'tool__icon', 'aria-hidden': 'true', text: tool.name.slice(0, 2) }),
-      el('span', {}, [
-        el('span', { class: 'tool__name', text: tool.name }),
-        el('span', { class: 'tool__role', text: L(tool.role) }),
-      ]),
+    $('#toolsList').replaceChildren(...C.toolGroups.map((g) => el('div', { class: `tool-group tool-group--${g.id} reveal` }, [
+      el('h3', { class: 'tool-group__title', text: L(g.title) }),
+      el('ul', { class: 'tools__row' }, g.tools.map((tool) => el('li', { class: 'tool' + (tool.versions ? ' tool--multi' : '') }, [
+        el('span', { class: 'tool__icon', 'aria-hidden': 'true', text: tool.name.slice(0, 2) }),
+        el('span', {}, [
+          el('span', { class: 'tool__name', text: tool.name }),
+          tool.versions
+            ? el('span', { class: 'tool__versions' }, tool.versions.map((v) => el('span', { text: v })))
+            : (tool.role ? el('span', { class: 'tool__role', text: L(tool.role) }) : null),
+        ]),
+      ]))),
     ])));
   }
 
