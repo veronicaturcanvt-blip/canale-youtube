@@ -310,7 +310,7 @@ window.SITE_CONTENT = {
       ],
     },
     {
-      name: 'Krea',
+      name: 'Crea.ai',
       role: { ru: 'агрегатор ИИ-моделей для изображений и видео', it: 'aggregatore di modelli AI per immagini e video', en: 'AI model hub for images and video' },
     },
     {
