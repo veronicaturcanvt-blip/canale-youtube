@@ -331,16 +331,44 @@ window.SITE_CONTENT = {
     },
   ],
 
-  tools: [
-    { name: 'Seedance', role: { ru: 'видео', it: 'video', en: 'video' } },
-    { name: 'Veo', role: { ru: 'видео', it: 'video', en: 'video' } },
-    { name: 'GPT Image', role: { ru: 'изображения', it: 'immagini', en: 'images' } },
-    { name: 'Grok Image', role: { ru: 'изображения', it: 'immagini', en: 'images' } },
-    { name: 'Seedream', role: { ru: 'изображения', it: 'immagini', en: 'images' } },
-    { name: 'Hedra', role: { ru: 'говорящие персонажи', it: 'personaggi parlanti', en: 'talking characters' } },
-    { name: 'MiniMax', role: { ru: 'голос', it: 'voce', en: 'voice' } },
-    { name: 'Suno', role: { ru: 'музыка', it: 'musica', en: 'music' } },
-    { name: 'CapCut', role: { ru: 'монтаж', it: 'montaggio', en: 'edit' } },
+  // Other tools, grouped. A tool with `versions` shows them stacked in one box (top = newest).
+  toolGroups: [
+    {
+      id: 'images',
+      title: { ru: 'Изображения', it: 'Immagini', en: 'Images' },
+      tools: [
+        { name: 'ChatGPT Image', versions: ['2.6 Flare', '2.6 Sambart', '2.5 Flare', '2.5 Sambart', '2'] },
+        { name: 'Flux' },
+        { name: 'Nano Banana', versions: ['Pro', '2.1', '2'] },
+        { name: 'Seedream 5.0 Pro' },
+        { name: 'Grok Image' },
+        { name: 'Topaz Photo Upscale' },
+      ],
+    },
+    {
+      id: 'video',
+      title: { ru: 'Видео', it: 'Video', en: 'Video' },
+      tools: [
+        { name: 'Seedance', versions: ['2.5', '2.0'] },
+        { name: 'Gemini Omni Flash' },
+        { name: 'Grok Imagine' },
+        { name: 'Hailuo H3' },
+        { name: 'Kling', versions: ['3.0', '4.0', '2', 'Lip Sync', 'Motion Control'] },
+        { name: 'Veo 3.1' },
+        { name: 'WAN 3.0' },
+        { name: 'Topaz Video Upscale' },
+      ],
+    },
+    {
+      id: 'audio',
+      title: { ru: 'Голос, музыка и монтаж', it: 'Voce, musica e montaggio', en: 'Voice, music and editing' },
+      tools: [
+        { name: 'Hedra', role: { ru: 'говорящие персонажи', it: 'personaggi parlanti', en: 'talking characters' } },
+        { name: 'MiniMax', role: { ru: 'голос', it: 'voce', en: 'voice' } },
+        { name: 'Suno', role: { ru: 'музыка', it: 'musica', en: 'music' } },
+        { name: 'CapCut', role: { ru: 'монтаж', it: 'montaggio', en: 'edit' } },
+      ],
+    },
   ],
 
   audience: [
