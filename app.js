@@ -62,6 +62,7 @@
     whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 20.5l1.4-4.2A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2.8-2.8l.8-1-1-2z"/></svg>',
     email: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg>',
     tiktok: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M14 3v11.5a4 4 0 1 1-4-4"/><path d="M14 3c.4 2.8 2.4 4.8 5 5"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor"/></svg>',
     facebook: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M14 21v-8h3l.5-3.5H14V7.6c0-1 .4-1.6 1.6-1.6H18V3.2c-.5-.1-1.6-.2-2.8-.2-2.7 0-4.4 1.6-4.4 4.5v2H8V13h2.8v8"/></svg>',
     brand: '<svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M10 40V20l14-12 14 12v20z"/><path d="M19 40V28h10v12"/></svg>',
     rocket: '<svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M24 6c7 5 10 12 9 22l-5 5h-8l-5-5c-1-10 2-17 9-22z"/><circle cx="24" cy="19" r="3.5"/><path d="M15 28l-5 5 3 7 5-5M33 28l5 5-3 7-5-5"/></svg>',
@@ -225,6 +226,22 @@
   }
 
   function renderTools() {
+    const N = (n) => (typeof n === 'string' ? n : L(n));
+    $('#toolsMain').replaceChildren(...(C.mainTools || []).map((tool) => el('li', { class: 'tool-main reveal' }, [
+      el('div', { class: 'tool-main__head' }, [
+        el('span', { class: 'tool__icon tool-main__icon', 'aria-hidden': 'true', text: tool.name.slice(0, 2) }),
+        el('span', {}, [
+          el('span', { class: 'tool-main__name', text: tool.name }),
+          el('span', { class: 'tool__role', text: L(tool.role) }),
+        ]),
+      ]),
+      tool.branches && tool.branches.length
+        ? el('ul', { class: 'tool-main__branches' }, tool.branches.map((b) => el('li', {}, [
+            el('span', { class: 'tool__name', text: N(b.name) }),
+            el('span', { class: 'tool__role', text: L(b.role) }),
+          ])))
+        : null,
+    ])));
     $('#toolsList').replaceChildren(...C.tools.map((tool) => el('li', { class: 'tool reveal' }, [
       el('span', { class: 'tool__icon', 'aria-hidden': 'true', text: tool.name.slice(0, 2) }),
       el('span', {}, [
@@ -243,15 +260,15 @@
   }
 
   function renderContacts() {
-    $('#contactsGrid').replaceChildren(...C.contacts.map((c) => {
-      const href = C.links[c.id] || '#';
+    $('#contactsGrid').replaceChildren(...C.contacts.filter((c) => C.links[c.id]).map((c) => {
+      const href = C.links[c.id];
       const external = /^https?:/.test(href);
       const a = el('a', {
         class: 'contact reveal', href,
         target: external ? '_blank' : null, rel: external ? 'noopener noreferrer' : null,
       });
-      a.innerHTML = ICONS[c.id] || '';
-      a.append(el('span', { text: c.label }));
+      a.innerHTML = ICONS[c.icon || c.id] || '';
+      a.append(el('span', { class: 'contact__label' }, [c.label, c.handle ? el('small', { class: 'contact__handle', text: c.handle }) : null]));
       a.insertAdjacentHTML('beforeend', ICONS.arrow);
       return a;
     }));

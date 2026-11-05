@@ -385,7 +385,20 @@ h1, h2, h3, p { margin: 0; }
 .episode--last { background: linear-gradient(160deg, rgba(var(--accent-rgb),.22), rgba(var(--pink-rgb),.14) 55%, var(--bg-2) 90%); border-color: rgba(var(--accent-rgb),.4); }
 
 /* ============ Tools ============ */
-.tools__list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.tools__main { display: grid; gap: 14px; margin: 36px 0 0; padding: 0; list-style: none; }
+@media (min-width: 720px) { .tools__main { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+.tool-main {
+  padding: 20px 22px; border-radius: var(--radius-lg); border: 1px solid rgba(var(--accent-rgb),.35);
+  background: linear-gradient(150deg, rgba(var(--accent-rgb),.14), rgba(var(--pink-rgb),.08) 60%, var(--bg-2) 95%);
+}
+.tool-main:nth-child(even) { border-color: rgba(var(--pink-rgb),.35); background: linear-gradient(150deg, rgba(var(--pink-rgb),.14), rgba(var(--accent-rgb),.08) 60%, var(--bg-2) 95%); }
+.tool-main__head { display: flex; align-items: center; gap: 14px; }
+.tool-main__icon { width: 48px; height: 48px; font-size: 18px; }
+.tool-main__name { display: block; font: 700 24px/1.15 var(--font-display); letter-spacing: -.01em; }
+.tool-main__branches { list-style: none; margin: 16px 0 0 23px; padding: 0 0 0 22px; border-left: 1px solid rgba(var(--accent-rgb),.45); display: grid; gap: 12px; }
+.tool-main__branches li { position: relative; }
+.tool-main__branches li::before { content: ''; position: absolute; left: -22px; top: .7em; width: 14px; border-top: 1px solid rgba(var(--accent-rgb),.45); }
+.tools__list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .tool {
   display: flex; align-items: center; gap: 12px;
   padding: 10px 18px 10px 10px; border-radius: 999px;
@@ -504,3 +517,7 @@ h1, h2, h3, p { margin: 0; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero__fallback, .hero__scroll::after { animation: none; }
 }
+
+.contact__label { display: flex; flex-direction: column; line-height: 1.2; }
+.contact__handle { font-size: 13px; font-weight: 500; color: var(--muted); }
+.contact:hover .contact__handle { color: inherit; opacity: .8; }
