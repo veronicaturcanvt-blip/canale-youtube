@@ -80,7 +80,14 @@
     $$('[data-i18n-aria]').forEach((n) => { n.setAttribute('aria-label', t(n.dataset.i18nAria)); });
     $$('.lang [data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     $('.skip').textContent = t('nav.works');
-    $('#aboutText').replaceChildren(...[].concat(t('about.text')).map((p) => el('p', { text: p })));
+    const study = t('about.study');
+    $('#aboutText').replaceChildren(
+      ...[].concat(t('about.text')).map((p) => el('p', { text: p })),
+      ...(study && study.title ? [el('div', { class: 'about__study' }, [
+        el('strong', { class: 'about__study-title', text: study.title }),
+        el('p', { text: study.text }),
+      ])] : []),
+    );
     $('#aboutFacts').replaceChildren(...t('about.facts').map((f) => el('li', { text: f })));
   }
 
