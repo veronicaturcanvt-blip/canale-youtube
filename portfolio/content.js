@@ -7,13 +7,14 @@ window.SITE_CONTENT = {
   languages: ['it', 'en', 'ru'],
   defaultLang: 'en',
 
-  // Contact links — placeholders, replace with real ones.
+  // Contact links. A contact with an empty link is hidden on the page.
   links: {
-    telegram: 'https://t.me/your_username',
-    whatsapp: 'https://wa.me/390000000000',
-    email: 'mailto:hello@example.com',
+    whatsapp: 'https://wa.me/393518063989',
+    telegram: '',        // TODO: t.me/<username>
+    instagram: 'https://www.instagram.com/veronica_x_tur/',
+    instagram2: 'https://www.instagram.com/verokek.ai/',
     tiktok: 'https://www.tiktok.com/@vero.tur',
-    facebook: 'https://www.facebook.com/your.page',
+    facebook: '',        // TODO: link to the Vero Tur page
   },
 
   ui: {
@@ -121,7 +122,8 @@ window.SITE_CONTENT = {
   categories: [
     { id: 'brands', title: { ru: 'Реклама брендов', it: 'Spot per brand', en: 'Brand ads' } },
     { id: 'animation', title: { ru: 'Анимация и персонажи', it: 'Animazione e personaggi', en: 'Animation & characters' } },
-    { id: 'experiments', title: { ru: 'Эксперименты', it: 'Esperimenti', en: 'Experiments' } },
+    { id: 'postcards', title: { ru: 'Дизайн открыток', it: 'Design di cartoline', en: 'Postcard design' } },
+    { id: 'slides', title: { ru: 'Слайды для презентаций', it: 'Slide per presentazioni', en: 'Presentation slides' } },
   ],
 
   // Works. Descriptions (task / done) are placeholders — replace them.
@@ -214,6 +216,15 @@ window.SITE_CONTENT = {
       done: { ru: 'Здесь будет рассказ о том, что сделано.', it: 'Qui racconterò cosa ho fatto.', en: 'The making-of story goes here.' },
       tools: ['GPT Image', 'Seedance', 'Hedra', 'MiniMax', 'Suno', 'CapCut'],
     },
+    {
+      id: 'verokek',
+      category: 'animation',
+      brand: 'Vero.Kek',
+      title: { ru: 'Vero.Kek', it: 'Vero.Kek', en: 'Vero.Kek' },
+      task: { ru: 'Описание задачи скоро появится.', it: 'La descrizione dell’obiettivo arriverà presto.', en: 'Brief description coming soon.' },
+      done: { ru: 'Здесь будет рассказ о том, что сделано.', it: 'Qui racconterò cosa ho fatto.', en: 'The making-of story goes here.' },
+      tools: ['GPT Image', 'Seedance', 'CapCut'],
+    },
   ],
 
   process: [
@@ -275,6 +286,22 @@ window.SITE_CONTENT = {
     },
   ],
 
+  // Main tools, shown first and bigger. `branches` are listed under the tool.
+  mainTools: [
+    {
+      name: 'Claude',
+      role: { ru: 'мой главный ассистент', it: 'il mio assistente principale', en: 'my main assistant' },
+      branches: [
+        { name: 'Claude Code', role: { ru: 'сайты и приложения', it: 'siti e app', en: 'websites and apps' } },
+        { name: { ru: 'Планирование', it: 'Pianificazione', en: 'Planning' }, role: { ru: 'сценарии, стратегия, календари', it: 'sceneggiature, strategia, calendari', en: 'scripts, strategy, calendars' } },
+      ],
+    },
+    {
+      name: 'ChatGPT',
+      role: { ru: 'идеи, тексты и промпты', it: 'idee, testi e prompt', en: 'ideas, copy and prompts' },
+    },
+  ],
+
   tools: [
     { name: 'Seedance', role: { ru: 'видео', it: 'video', en: 'video' } },
     { name: 'Veo', role: { ru: 'видео', it: 'video', en: 'video' } },
@@ -315,10 +342,11 @@ window.SITE_CONTENT = {
   ],
 
   contacts: [
+    { id: 'whatsapp', label: 'WhatsApp', handle: '+39 351 806 3989' },
     { id: 'telegram', label: 'Telegram' },
-    { id: 'whatsapp', label: 'WhatsApp' },
-    { id: 'email', label: 'Email' },
-    { id: 'tiktok', label: 'TikTok' },
-    { id: 'facebook', label: 'Facebook' },
+    { id: 'instagram', icon: 'instagram', label: 'Instagram', handle: '@veronica_x_tur' },
+    { id: 'instagram2', icon: 'instagram', label: 'Instagram', handle: '@verokek.ai' },
+    { id: 'tiktok', label: 'TikTok', handle: '@vero.tur' },
+    { id: 'facebook', label: 'Facebook', handle: 'Vero Tur' },
   ],
 };
