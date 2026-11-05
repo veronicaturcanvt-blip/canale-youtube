@@ -386,7 +386,8 @@ h1, h2, h3, p { margin: 0; }
 
 /* ============ Tools ============ */
 .tools__main { display: grid; gap: 14px; margin: 36px 0 0; padding: 0; list-style: none; }
-@media (min-width: 720px) { .tools__main { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+@media (min-width: 720px) { .tools__main { grid-template-columns: repeat(2, 1fr); align-items: start; } }
+@media (min-width: 1100px) { .tools__main { grid-template-columns: 1.4fr 1fr 1fr; } }
 .tool-main {
   padding: 20px 22px; border-radius: var(--radius-lg); border: 1px solid rgba(var(--accent-rgb),.35);
   background: linear-gradient(150deg, rgba(var(--accent-rgb),.14), rgba(var(--pink-rgb),.08) 60%, var(--bg-2) 95%);
