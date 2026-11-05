@@ -223,12 +223,19 @@ window.SITE_CONTENT = {
     },
     {
       id: 'verokek',
-      draft: true, // no video yet: hidden on the page until the video is uploaded
       category: 'animation',
       brand: 'Vero.Kek',
-      title: { ru: 'Vero.Kek', it: 'Vero.Kek', en: 'Vero.Kek' },
-      task: { ru: 'Описание задачи скоро появится.', it: 'La descrizione dell’obiettivo arriverà presto.', en: 'Brief description coming soon.' },
-      done: { ru: 'Здесь будет рассказ о том, что сделано.', it: 'Qui racconterò cosa ho fatto.', en: 'The making-of story goes here.' },
+      title: { ru: 'Он, она и чемодан', it: 'Lui, lei e la valigia', en: 'Him, her and the suitcase' },
+      task: {
+        ru: 'Смешной ролик для моего Instagram @verokek.ai: история о паре, понятная без слов и на любом языке.',
+        it: 'Un video comico per il mio Instagram @verokek.ai: una storia di coppia che si capisce senza parole, in qualsiasi lingua.',
+        en: 'A comedy reel for my Instagram @verokek.ai: a couple story anyone gets without words, in any language.',
+      },
+      done: {
+        ru: 'Придумала персонажей в 3D-стиле: она уходит с чемоданом, он на коленях умоляет остаться, а когда дверь закрывается, пускается в пляс. Поворот в конце делает ролик смешным, и его досматривают до конца.',
+        it: 'Ho creato i personaggi in stile 3D: lei se ne va con la valigia, lui in ginocchio la supplica di restare e, appena la porta si chiude, si mette a ballare. È il colpo di scena finale a far ridere e a far guardare il video fino alla fine.',
+        en: 'I designed the characters in 3D style: she leaves with her suitcase, he begs her on his knees to stay, and the moment the door shuts he starts dancing. The twist at the end is what makes people laugh and watch to the last second.',
+      },
       tools: ['GPT Image', 'Seedance', 'CapCut'],
     },
   ],
@@ -301,6 +308,10 @@ window.SITE_CONTENT = {
         { name: 'Claude Code', role: { ru: 'сайты и приложения', it: 'siti e app', en: 'websites and apps' } },
         { name: { ru: 'Планирование', it: 'Pianificazione', en: 'Planning' }, role: { ru: 'сценарии, стратегия, календари', it: 'sceneggiature, strategia, calendari', en: 'scripts, strategy, calendars' } },
       ],
+    },
+    {
+      name: 'Krea',
+      role: { ru: 'агрегатор ИИ-моделей для изображений и видео', it: 'aggregatore di modelli AI per immagini e video', en: 'AI model hub for images and video' },
     },
     {
       name: 'ChatGPT',
