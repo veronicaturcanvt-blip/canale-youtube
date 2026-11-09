@@ -1,0 +1,16 @@
+{
+  "name": "Memovita",
+  "short_name": "Memovita",
+  "description": "La tua vita, senza dimenticare niente: scadenze, documenti e liste in un posto solo.",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F4F3EF",
+  "theme_color": "#F4F3EF",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
