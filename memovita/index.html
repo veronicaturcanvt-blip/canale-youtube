@@ -218,6 +218,11 @@ h1,h2,h3,p{margin:0}
 .iname{word-break:break-word}
 .ibtn{border:none;background:none;width:44px;height:48px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0}
 .ibtn.on{color:#D97706}
+.ibtn.bellon{color:#4338CA}
+.twhen{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--muted)}
+.twhen.hot{color:var(--bell)}
+.todoq{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.todoq .dp{height:44px;font-size:13px;display:flex;align-items:center;justify-content:center;gap:4px}
 .two .fld[hidden]+.fld{grid-column:span 2}
 .daypick{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .dp{border:2px solid var(--line);background:var(--surface);border-radius:12px;height:46px;font-size:13px;font-weight:800;color:var(--text);padding:0}
@@ -268,6 +273,7 @@ const ICONE={
   scuola:'<path d="M5 10a7 7 0 0 1 14 0v11H5z"/><path d="M9 3h6"/><path d="M8 15h8v6"/>',
   vacanza:'<path d="M2 12l20-8-6 18-4-7z"/><path d="M12 15l10-11"/>',
   hobby:'<circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/><path d="M12 21a3 3 0 0 1 0-6h3"/>',
+  todo:'<path d="M10 6h10M10 12h10M10 18h10"/><path d="m3.5 6 1.5 1.5L8 4.5"/><path d="m3.5 12 1.5 1.5L8 10.5"/><path d="m3.5 18 1.5 1.5L8 16.5"/>',
   salute:'<path d="M20.8 5.6a5.5 5.5 0 0 0-7.8 0L12 6.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 22l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/>',
   zampa:'<circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><path d="M8 17c0-3 2-5 4-5s4 2 4 5a2.5 2.5 0 0 1-4 2 2.5 2.5 0 0 1-4-2z"/>',
   soldi:'<rect x="2" y="6" width="20" height="13" rx="2"/><path d="M16 12h2"/><path d="M2 10h20"/>',
@@ -369,6 +375,7 @@ function load(){
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Spazio pieno sul telefono: elimina qualche allegato');}}
 S=load();
 if(!Array.isArray(S.lists)||!S.lists.length)S.lists=defaultLists();
+if(!Array.isArray(S.todos))S.todos=[];
 if(!S.settings)S.settings={};
 if(!Array.isArray(S.settings.rems))S.settings.rems=S.settings.rem?Array.from(new Set([S.settings.rem,1])).sort((a,b)=>b-a):DEF_REMS.slice();
 
@@ -380,6 +387,16 @@ function allOpen(){
   return out.sort((x,y)=>x.e.date.localeCompare(y.e.date));
 }
 function hotList(){return allOpen().filter(o=>isHot(o.e));}
+/* ---------- da fare ---------- */
+const TODO_COLOR='#4338CA';
+function todoAt(t){if(!t.remDate)return null;const d=parse(t.remDate);const tm=(t.remTime||'09:00').split(':');d.setHours(+tm[0]||0,+tm[1]||0,0,0);return d;}
+function todoHot(t){const d=todoAt(t);return !t.done&&!!d&&Date.now()>=d.getTime();}
+function todoHotList(){return (S.todos||[]).filter(todoHot);}
+function totalHot(){return hotList().length+todoHotList().length;}
+function todoWhen(t){if(!t.remDate)return '';const n=diff(t.remDate);const day=n===0?'oggi':n===1?'domani':n===-1?'ieri':fmtShort(t.remDate);return day+(t.remTime?' alle '+t.remTime:'');}
+function quickRem(kind){const now=new Date();if(kind==='oggi'){let h=now.getHours()<17?18:Math.min(now.getHours()+1,23);return {remDate:today(),remTime:String(h).padStart(2,'0')+':00'};}
+  if(kind==='domani'){const d=new Date();d.setDate(d.getDate()+1);return {remDate:iso(d),remTime:'09:00'};}return {remDate:'',remTime:''};}
+let todoQuick='';
 function subStatus(s){
   const open=s.entries.filter(e=>!e.done).sort((x,y)=>x.date.localeCompare(y.date));
   if(!open.length)return {cls:'st-none',txt:s.entries.length?'Tutto fatto':'Vuota',next:null};
@@ -399,6 +416,7 @@ function areaStatus(a){
 }
 function dotsFor(dateStr){
   const c=[];S.areas.forEach(a=>a.subs.forEach(s=>s.entries.forEach(e=>{if(!e.done&&e.date===dateStr&&c.indexOf(a.color)<0)c.push(a.color);})));
+  if((S.todos||[]).some(t=>!t.done&&t.remDate===dateStr)&&c.indexOf(TODO_COLOR)<0)c.push(TODO_COLOR);
   return c.slice(0,3);
 }
 
@@ -446,13 +464,14 @@ function render(){
   else if(V.name==='alerts')app.innerHTML=vAlerts();
   else if(V.name==='profile')app.innerHTML=vProfile();
   else if(V.name==='shop')app.innerHTML=vShop();
+  else if(V.name==='todo')app.innerHTML=vTodo();
   renderNav();loadThumbs();
   if(V.name==='search'){const i=document.getElementById('q');if(i){i.addEventListener('input',()=>{query=i.value;document.getElementById('res').innerHTML=searchResults();});}}
   if(V.name==='sub'){const t=document.getElementById('notes');if(t)t.addEventListener('change',()=>{const s=findSub(V.aid,V.sid);if(s){s.notes=t.value;save();toast('Note salvate');}});}
   if(!S.onboarded)showOnboarding();
 }
 function renderNav(){
-  const cur={home:'home',area:'home',sub:'home',alerts:'home',search:'home',calendar:'calendar',shop:'shop',profile:'profile'}[V.name];
+  const cur={home:'home',todo:'home',area:'home',sub:'home',alerts:'home',search:'home',calendar:'calendar',shop:'shop',profile:'profile'}[V.name];
   const b=(id,lab,ic)=>'<button data-act="tab" data-v="'+id+'" '+(cur===id?'aria-current="page"':'')+'>'+ic+lab+'</button>';
   document.getElementById('navin').innerHTML=b('home','Home',I.home(24))+b('calendar','Calendario',I.cal(24))+
     '<button class="plus" data-act="add" aria-label="Aggiungi">'+I.plus(28)+'</button>'+b('shop','Spesa',I.cart(24))+b('profile','Profilo',I.user(24));
@@ -462,20 +481,21 @@ function dotsHTML(c){return '<span class="dots">'+c.map(x=>'<i style="background
 
 function vHome(){
   const now=new Date();const t=TEMI[now.getMonth()];
-  const hot=hotList();
+  const hot=hotList();const allHot=totalHot();
   const dow=(now.getDay()+6)%7;const mon=new Date(now);mon.setDate(now.getDate()-dow);
   let week='';for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);const s=iso(d);
     week+='<button class="day'+(s===today()?' today':'')+'" data-act="openday" data-d="'+s+'" aria-label="'+esc(fmtLong(s))+'"><span class="wd">'+WD[i]+'</span><span class="n">'+d.getDate()+'</span>'+dotsHTML(dotsFor(s))+'</button>';}
   const allUp=allOpen();
   const up=allUp.filter(o=>{const st=stage(o.e);return st!==null&&(isHot(o.e)||diff(o.e.date)<=7);}).slice(0,3);
-  let rows=up.length?up.map(o=>crow(o)).join(''):(allUp.length?'<div class="empty">Nessun avviso per ora: le scadenze compaiono qui solo quando scatta il preavviso che hai scelto. Le trovi tutte nel Calendario.</div>':'<div class="empty">Nessuna scadenza in arrivo. Tocca il + in basso per aggiungere la prima.</div>');
+  const tHot=todoHotList();
+  let rows=(up.length||tHot.length)?tHot.map(t=>'<button class="crow" style="background:'+TODO_COLOR+'" data-act="tab" data-v="todo"><span class="ic">'+svg('todo',22)+'</span><span class="tx"><span class="t">'+esc(t.text)+'</span><span class="s">Da fare</span></span><span class="when hot">'+esc(todoWhen(t))+'</span></button>').join('')+up.map(o=>crow(o)).join(''):(allUp.length?'<div class="empty">Nessun avviso per ora: le scadenze compaiono qui solo quando scatta il preavviso che hai scelto. Le trovi tutte nel Calendario.</div>':'<div class="empty">Nessuna scadenza in arrivo. Tocca il + in basso per aggiungere la prima.</div>');
   const hiddenN=S.areas.filter(a=>a.hidden).length;
   const tiles=S.areas.filter(a=>!a.hidden).map(a=>{const st=areaStatus(a);return '<button class="tile" style="background:'+a.color+'" data-act="area" data-a="'+a.id+'"><span class="ic">'+svg(a.icon,26)+'</span><span><span class="nm">'+esc(a.name)+'</span><br><span class="st">'+esc(st.txt)+'</span></span>'+(st.hot?'<span class="tbadge" aria-label="'+st.hot+' in scadenza">'+I.bell(15)+st.hot+'</span>':'')+'</button>';}).join('');
   return '<header class="top"><div><div class="date">'+GIORNI[now.getDay()].replace(/^./,c=>c.toUpperCase())+' '+now.getDate()+' '+MESI[now.getMonth()].toLowerCase()+'</div><h1 class="brand">Memovita</h1><div class="slogan">la tua vita, senza dimenticare niente</div></div>'+
-    '<div class="topbtns"><button class="sbtn" data-act="tab" data-v="search" aria-label="Cerca">'+I.search(22)+'</button><button class="bell" data-act="tab" data-v="alerts" aria-label="Avvisi: '+hot.length+'">'+I.bell(24,'#fff')+(hot.length?'<span class="badge">'+hot.length+'</span>':'')+'</button></div></header>'+
+    '<div class="topbtns"><button class="sbtn" data-act="tab" data-v="search" aria-label="Cerca">'+I.search(22)+'</button><button class="bell" data-act="tab" data-v="alerts" aria-label="Avvisi: '+allHot+'">'+I.bell(24,'#fff')+(allHot?'<span class="badge">'+allHot+'</span>':'')+'</button></div></header>'+
     '<section class="calcard" style="background:'+t.bg+'">'+falling(t.e,5)+'<div class="head"><span class="month">'+I.cal(20)+MESI[now.getMonth()]+' '+now.getFullYear()+'</span><button class="pillbtn" data-act="tab" data-v="calendar">Apri calendario '+I.down(16)+'</button></div><div class="week">'+week+'</div></section>'+
-    '<section class="sec"><div class="sechead"><h2>In arrivo</h2>'+(up.length?'<button class="link" data-act="tab" data-v="alerts">Vedi avvisi</button>':'')+'</div>'+rows+'</section>'+
-    '<section class="sec"><div class="sechead"><h2>Le mie aree</h2></div><div class="grid">'+tiles+'<button class="newtile" data-act="newarea">'+I.plus(20)+'Nuovo riquadro</button></div>'+(hiddenN?'<button class="link" data-act="tab" data-v="profile" style="margin-top:12px">'+hiddenN+(hiddenN===1?' riquadro nascosto':' riquadri nascosti')+': gestisci</button>':'')+'</section>';
+    '<section class="sec"><div class="sechead"><h2>In arrivo</h2>'+((up.length||tHot.length)?'<button class="link" data-act="tab" data-v="alerts">Vedi avvisi</button>':'')+'</div>'+rows+'</section>'+
+    '<section class="sec"><div class="sechead"><h2>Le mie aree</h2></div><div class="grid">'+tiles+todoTile()+'<button class="newtile" data-act="newarea">'+I.plus(20)+'Nuovo riquadro</button></div>'+(hiddenN?'<button class="link" data-act="tab" data-v="profile" style="margin-top:12px">'+hiddenN+(hiddenN===1?' riquadro nascosto':' riquadri nascosti')+': gestisci</button>':'')+'</section>';
 }
 function crow(o){
   const hot=isHot(o.e);
@@ -535,7 +555,8 @@ function vCal(){
   for(let i=0;i<lead;i++)g+='<span class="mday out"></span>';
   for(let d=1;d<=days;d++){const s=iso(new Date(calView.y,calView.m,d));g+='<button class="mday'+(s===today()?' today':'')+(s===calSel?' sel':'')+'" data-act="selday" data-d="'+s+'" aria-label="'+esc(fmtLong(s))+'">'+d+dotsHTML(dotsFor(s))+'</button>';}
   const items=[];S.areas.forEach(a=>a.subs.forEach(s=>s.entries.forEach(e=>{if(e.date===calSel)items.push({a,s,e});})));
-  const list=items.length?items.map(o=>o.e.done?'<div class="row" style="background:var(--surface);border-radius:18px;margin-bottom:8px"><span class="dot st-ok"></span><span class="tx"><span class="t">'+esc(o.e.title)+'</span><span class="s">'+esc(o.a.name+' · fatto')+'</span></span></div>':crow(o)).join(''):'<div class="empty">Nessuna scadenza in questo giorno.</div>';
+  const dayTodos=(S.todos||[]).filter(t=>t.remDate===calSel);
+  const list=(items.length||dayTodos.length)?dayTodos.map(todoRow).join('')+items.map(o=>o.e.done?'<div class="row" style="background:var(--surface);border-radius:18px;margin-bottom:8px"><span class="dot st-ok"></span><span class="tx"><span class="t">'+esc(o.e.title)+'</span><span class="s">'+esc(o.a.name+' · fatto')+'</span></span></div>':crow(o)).join(''):'<div class="empty">Nessuna scadenza in questo giorno.</div>';
   return '<section class="calcard" style="background:'+t.bg+'">'+falling(t.e,5)+'<div class="head"><span class="month" style="font-size:20px">'+MESI[calView.m]+' '+calView.y+'</span><span class="calnav"><button data-act="mprev" aria-label="Mese precedente">'+I.back(20)+'</button><button data-act="mnext" aria-label="Mese successivo">'+I.next(20)+'</button></span></div><div class="mgrid">'+g+'</div></section>'+
     '<section class="sec"><div class="sechead"><h2 style="text-transform:none">'+esc(fmtLong(calSel).replace(/^./,c=>c.toUpperCase()))+'</h2></div>'+list+'</section>';
 }
@@ -548,6 +569,7 @@ function searchResults(){
     const hay=[a.name,s.name,s.notes].concat(s.entries.map(e=>e.title+' '+(e.notes||''))).concat(s.files.map(f=>f.name)).join(' ').toLowerCase();
     if(hay.indexOf(q)>=0){const st=subStatus(s);out.push('<button class="row" data-act="sub" data-a="'+a.id+'" data-s="'+s.id+'"><span class="dot" style="background:'+a.color+'"></span><span class="tx"><span class="t">'+esc(s.name)+'</span><span class="s">'+esc(a.name+' · '+st.txt)+'</span></span>'+I.next(20)+'</button>');}
   }));
+  (S.todos||[]).forEach(t=>{if(t.text.toLowerCase().indexOf(q)>=0)out.push('<button class="row" data-act="tab" data-v="todo"><span class="dot" style="background:'+TODO_COLOR+'"></span><span class="tx"><span class="t">'+esc(t.text)+'</span><span class="s">'+esc('Da fare'+(t.done?' · fatto':t.remDate?' · '+todoWhen(t):''))+'</span></span>'+I.next(20)+'</button>');});
   (S.lists||[]).forEach(l=>{const hits=l.items.filter(it=>it.name.toLowerCase().indexOf(q)>=0);if(hits.length||l.name.toLowerCase().indexOf(q)>=0)out.push('<button class="row" data-act="openlist" data-l="'+l.id+'"><span class="dot" style="background:'+l.color+'"></span><span class="tx"><span class="t">'+esc(hits.length?hits.map(h=>h.name).join(', '):l.name)+'</span><span class="s">'+esc('Spesa · '+l.name)+'</span></span>'+I.next(20)+'</button>');});
   return out.length?'<div class="list">'+out.join('')+'</div>':'<div class="empty">Nessun risultato per "'+esc(query)+'".</div>';
 }
@@ -606,10 +628,49 @@ function addItem(raw){
 }
 function findItem(id){const l=curList();return l?l.items.find(i=>i.id===id):null;}
 
+function todoTile(){
+  if(S.settings.todoHidden)return '';
+  const open=(S.todos||[]).filter(t=>!t.done);const hot=todoHotList().length;
+  const st=hot?(hot===1?'1 da ricordare ora':hot+' da ricordare ora'):open.length?(open.length===1?'1 cosa da fare':open.length+' cose da fare'):'Scrivi un\'idea al volo';
+  return '<button class="tile" style="background:'+TODO_COLOR+'" data-act="tab" data-v="todo"><span class="ic">'+svg('todo',26)+'</span><span><span class="nm">Da fare</span><br><span class="st">'+esc(st)+'</span></span>'+(hot?'<span class="tbadge" aria-label="'+hot+' da ricordare">'+I.bell(15)+hot+'</span>':'')+'</button>';
+}
+function todoRow(t){
+  const hot=todoHot(t);
+  return '<div class="irow'+(t.done?' done':'')+'"><button class="icheck" data-act="toggletodo1" data-t="'+t.id+'" aria-pressed="'+(!!t.done)+'" aria-label="'+(t.done?'Da rifare: ':'Fatto: ')+esc(t.text)+'"><span class="box">'+(t.done?I.check(16):'')+'</span><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span class="iname">'+esc(t.text)+'</span>'+
+    (t.remDate&&!t.done?'<span class="twhen'+(hot?' hot':'')+'">'+I.bell(13)+esc(todoWhen(t))+'</span>':'')+'</span></button>'+
+    '<button class="ibtn'+(t.remDate&&!t.done?' bellon':'')+'" data-act="edittodo" data-t="'+t.id+'" aria-label="Promemoria e modifica: '+esc(t.text)+'">'+(t.done?I.dots(20):I.bell(20))+'</button></div>';
+}
+function vTodo(){
+  const open=(S.todos||[]).filter(t=>!t.done).sort((a,b)=>{const ha=todoHot(a),hb=todoHot(b);if(ha!==hb)return ha?-1:1;const da=todoAt(a),db=todoAt(b);if(da&&db)return da-db;if(da)return -1;if(db)return 1;return (b.created||'').localeCompare(a.created||'');});
+  const done=(S.todos||[]).filter(t=>t.done);
+  const qc=[['','Nessun avviso'],['oggi','Oggi'],['domani','Domani']].map(q=>'<button type="button" class="dp" data-act="todoquick" data-q="'+q[0]+'" aria-pressed="'+(todoQuick===q[0])+'">'+(q[0]?I.bell(14)+' ':'')+q[1]+'</button>').join('');
+  let h='<div class="backbar"><button class="iconbtn" data-act="back" aria-label="Indietro">'+I.back(22)+'</button><span></span></div>'+
+    '<div class="hero" style="background:'+TODO_COLOR+'"><span class="ic">'+svg('todo',30)+'</span><div><h1>Da fare</h1><p>Idee e cose da non dimenticare</p></div></div>'+
+    '<form id="addtodo" class="addform" style="margin-bottom:10px" autocomplete="off"><label for="newtodo" class="sr">Nuova cosa da fare</label><input id="newtodo" class="search" style="margin:0" placeholder="Scrivi un\'idea o una cosa da fare"><button class="addbtn" type="submit" aria-label="Aggiungi">'+I.plus(24)+'</button></form>'+
+    '<div class="fld" style="margin-bottom:22px"><label>Ricordamelo</label><div class="todoq">'+qc+'</div></div>';
+  h+=open.length?'<section class="sec"><div class="list">'+open.map(todoRow).join('')+'</div><p class="muted" style="font-size:13px;margin-top:8px">Tocca il campanello di una riga per scegliere giorno e ora del promemoria.</p></section>':'<div class="empty" style="margin-bottom:24px">Niente da fare. Scrivi qui sopra la prima idea.</div>';
+  if(done.length)h+='<section class="sec"><div class="sechead"><h2>Fatto ('+done.length+')</h2><button class="link" data-act="cleartodo">Togli i fatti</button></div><div class="list">'+done.map(todoRow).join('')+'</div></section>';
+  return h;
+}
+function todoForm(t){
+  sheet('Promemoria',
+    '<div class="fld"><label for="ttext">Cosa</label><textarea id="ttext" maxlength="300">'+esc(t.text)+'</textarea></div>'+
+    '<div class="fld"><label>Ricordamelo</label><div class="todoq">'+[['','Nessuno'],['oggi','Oggi'],['domani','Domani']].map(q=>'<button type="button" class="dp" data-act="todoset" data-q="'+q[0]+'">'+q[1]+'</button>').join('')+'</div></div>'+
+    '<div class="two"><div class="fld"><label for="tdate">Giorno</label><input id="tdate" type="date" value="'+esc(t.remDate||'')+'"></div><div class="fld"><label for="ttime">Ora</label><input id="ttime" type="time" value="'+esc(t.remTime||'')+'"></div></div>'+
+    (t.remDate?'<a class="primary" style="display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;background:var(--surface);color:var(--text);margin-bottom:6px" href="'+todoGcal(t)+'" target="_blank" rel="noopener">'+I.cal(18)+'Aggiungi al calendario del telefono</a>':'')+
+    '<button class="primary" data-act="savetodo" data-t="'+t.id+'">Salva</button><button class="danger" data-act="deltodo" data-t="'+t.id+'">Elimina</button>');
+}
+function todoGcal(t){const d=todoAt(t);const e=new Date(d.getTime()+30*60000);const f=x=>x.getFullYear()+String(x.getMonth()+1).padStart(2,'0')+String(x.getDate()).padStart(2,'0')+'T'+String(x.getHours()).padStart(2,'0')+String(x.getMinutes()).padStart(2,'0')+'00';
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(t.text.slice(0,80))+'&dates='+f(d)+'/'+f(e)+'&details='+encodeURIComponent('Memovita: Da fare');}
+function findTodo(id){return (S.todos||[]).find(t=>t.id===id);}
+function addTodo(raw){const txt=String(raw||'').trim();if(!txt)return false;const t=Object.assign({id:uid(),text:cap(txt),done:false,created:new Date().toISOString()},quickRem(todoQuick));S.todos.push(t);save();render();toast(t.remDate?'Aggiunto, te lo ricordo '+todoWhen(t):'Aggiunto');return true;}
+
 function vAlerts(){
   const hot=hotList();const late=hot.filter(o=>diff(o.e.date)<0),soon=hot.filter(o=>diff(o.e.date)>=0);
   let h='<div class="backbar"><button class="iconbtn" data-act="back" aria-label="Indietro">'+I.back(22)+'</button><span></span></div><h1 style="font-size:26px;font-weight:800;margin-bottom:16px">Avvisi</h1>';
-  if(!hot.length)return h+'<div class="empty">Nessun avviso: niente in scadenza nei prossimi giorni.</div>';
+  const th=todoHotList();
+  if(!hot.length&&!th.length)return h+'<div class="empty">Nessun avviso: niente in scadenza nei prossimi giorni.</div>';
+  if(th.length)h+='<section class="sec"><div class="sechead"><h2>Da fare</h2></div><div class="list">'+th.map(todoRow).join('')+'</div></section>';
   if(late.length)h+='<section class="sec"><div class="sechead"><h2>Scadute</h2></div>'+late.map(crow).join('')+'</section>';
   if(soon.length)h+='<section class="sec"><div class="sechead"><h2>In scadenza</h2></div>'+soon.map(o=>{const st=stage(o.e);return crow(o)+(st>0?'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin:-2px 4px 12px"><span class="muted" style="font-size:13px;font-weight:700">'+esc(stageText(o.e))+'</span><button class="link" data-act="ack" data-a="'+o.a.id+'" data-s="'+o.s.id+'" data-e="'+o.e.id+'">Ho visto</button></div>':'');}).join('')+'</section>';
   return h;
@@ -619,7 +680,7 @@ function vProfile(){
   const areasList=S.areas.map(a=>'<div class="row"><span class="dot" style="background:'+a.color+'"></span><span class="tx"><span class="t">'+esc(a.name)+'</span><span class="s">'+(a.hidden?'Nascosto dalla Home':'Visibile in Home')+'</span></span><button class="switch" data-act="togglearea" data-a="'+a.id+'" role="switch" aria-checked="'+(!a.hidden)+'" aria-label="Mostra '+esc(a.name)+' in Home"><i></i></button></div>').join('');
   return '<h1 style="font-size:26px;font-weight:800;margin-bottom:16px">Profilo</h1>'+
   '<section class="sec"><div class="sechead"><h2>Avvisi predefiniti</h2></div><p class="muted" style="font-size:14px;margin-bottom:10px">Valgono per ogni nuova scadenza. Puoi cambiarli anche scadenza per scadenza.</p><div id="defrems">'+remChips(S.settings.rems)+'</div><button class="primary" data-act="savedefrems" style="margin-top:12px">Salva avvisi predefiniti</button></section>'+
-  '<section class="sec"><div class="sechead"><h2>Riquadri in Home</h2></div><p class="muted" style="font-size:14px;margin-bottom:10px">Nascondi quelli che non usi. Puoi riattivarli quando vuoi.</p><div class="list">'+areasList+'</div></section>'+
+  '<section class="sec"><div class="sechead"><h2>Riquadri in Home</h2></div><p class="muted" style="font-size:14px;margin-bottom:10px">Nascondi quelli che non usi. Puoi riattivarli quando vuoi.</p><div class="list">'+areasList+'<div class="row"><span class="dot" style="background:'+TODO_COLOR+'"></span><span class="tx"><span class="t">Da fare</span><span class="s">'+(S.settings.todoHidden?'Nascosto dalla Home':'Visibile in Home')+'</span></span><button class="switch" data-act="toggletodo" role="switch" aria-checked="'+(!S.settings.todoHidden)+'" aria-label="Mostra Da fare in Home"><i></i></button></div></div></section>'+
   '<section class="sec"><div class="sechead"><h2>I tuoi dati</h2></div><div class="list">'+
    '<button class="row" data-act="export" data-needs-dl><span class="tx"><span class="t">Esporta backup</span><span class="s">Un file con tutti i dati e gli allegati</span></span>'+I.next(20)+'</button>'+
    '<label class="row" style="position:relative;cursor:pointer"><span class="tx"><span class="t">Importa backup</span><span class="s">Ripristina da un file esportato</span></span>'+I.next(20)+'<input type="file" accept="application/json,.json" data-upload="backup" style="position:absolute;inset:0;opacity:0" aria-label="Importa backup"></label>'+
@@ -797,6 +858,14 @@ const A={
     save();close();render();toast('Salvato');},
   delitem:d=>{const l=curList();l.items=l.items.filter(i=>i.id!==d.i);save();close();render();toast('Articolo eliminato');},
   cleardone:()=>{const l=curList();const n=l.items.filter(i=>i.done).length;l.items=l.items.filter(i=>!i.done);save();render();toast(n+(n===1?' articolo tolto':' articoli tolti'));},
+  todoquick:d=>{todoQuick=d.q;render();const n=document.getElementById('newtodo');if(n)n.focus();},
+  toggletodo1:d=>{const t=findTodo(d.t);if(!t)return;t.done=!t.done;t.doneAt=t.done?today():undefined;save();render();},
+  edittodo:d=>{const t=findTodo(d.t);if(t)todoForm(t);},
+  todoset:d=>{const r=quickRem(d.q);document.getElementById('tdate').value=r.remDate;document.getElementById('ttime').value=r.remTime;},
+  savetodo:d=>{const t=findTodo(d.t);if(!t)return;const txt=val('ttext').trim();if(!txt){toast('Scrivi qualcosa');return;}t.text=cap(txt);t.remDate=val('tdate');t.remTime=t.remDate?(val('ttime')||'09:00'):'';save();close();render();toast(t.remDate?'Te lo ricordo '+todoWhen(t):'Salvato');},
+  deltodo:d=>{S.todos=S.todos.filter(t=>t.id!==d.t);save();close();render();toast('Eliminato');},
+  cleartodo:()=>{const n=S.todos.filter(t=>t.done).length;S.todos=S.todos.filter(t=>!t.done);save();render();toast(n+(n===1?' tolto':' tolti'));},
+  toggletodo:()=>{S.settings.todoHidden=!S.settings.todoHidden;save();render();toast(S.settings.todoHidden?'Da fare nascosto':'Da fare di nuovo in Home');},
   ack:d=>{const s=findSub(d.a||V.aid,d.s||V.sid);const e=s&&s.entries.find(x=>x.id===d.e);if(!e)return;e.ack=stage(e);save();render();toast('Ok, ti riavviso più vicino alla scadenza');},
   undo:d=>{const s=findSub(V.aid,V.sid);const e=s.entries.find(x=>x.id===d.e);if(e){e.done=false;delete e.doneAt;save();render();toast('Scadenza riaperta');}},
   file:d=>{const s=findSub(V.aid,V.sid);const f=s.files.find(x=>x.id===d.f);if(f)fileSheet(f);},
@@ -820,10 +889,10 @@ const A={
   onbnext:()=>{if(onbStep<ONB.length-1){onbStep++;renderOnb();}else endOnb();},
   onbskip:()=>endOnb(),
   wipe:()=>sheet('Cancellare tutti i dati?','<p class="para">Riquadri, scadenze, note e documenti vengono eliminati da questo telefono. Non si può annullare.</p><button class="primary" style="background:var(--bell);color:#fff" data-act="wipe2">Cancella tutto</button><button class="ghost" data-act="close">Annulla</button>'),
-  wipe2:async()=>{for(const a of S.areas)for(const s of a.subs)for(const f of s.files)await fdel(f.id);S={areas:defaultAreas(),onboarded:true,settings:{rems:DEF_REMS.slice()},lists:defaultLists()};shopSel=null;save();close();tab('home');toast('Dati cancellati');}
+  wipe2:async()=>{for(const a of S.areas)for(const s of a.subs)for(const f of s.files)await fdel(f.id);S={areas:defaultAreas(),onboarded:true,settings:{rems:DEF_REMS.slice()},lists:defaultLists(),todos:[]};shopSel=null;save();close();tab('home');toast('Dati cancellati');}
 };
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;const f=A[t.dataset.act];if(f){e.preventDefault();f(t.dataset,t,e);}});
-document.addEventListener('submit',e=>{if(e.target.id==='additem'){e.preventDefault();const inp=document.getElementById('newitem');const v=inp.value;if(addItem(v)){const n=document.getElementById('newitem');if(n)n.focus();}}});
+document.addEventListener('submit',e=>{if(e.target.id==='addtodo'){e.preventDefault();const inp=document.getElementById('newtodo');if(addTodo(inp.value)){const n=document.getElementById('newtodo');if(n)n.focus();}return;}if(e.target.id==='additem'){e.preventDefault();const inp=document.getElementById('newitem');const v=inp.value;if(addItem(v)){const n=document.getElementById('newitem');if(n)n.focus();}}});
 document.addEventListener('change',async e=>{
   const t=e.target;
   if(t.id==='frep'){const w=t.value==='settimanale';const f=document.getElementById('fdays');if(f)f.hidden=!w;const g=document.getElementById('fdatefld');if(g)g.hidden=w;return;}
@@ -832,7 +901,7 @@ document.addEventListener('change',async e=>{
   if(kind==='backup'){
     try{const txt=await file.text();const o=JSON.parse(txt);if(!o||o.app!=='memovita'||!o.state||!Array.isArray(o.state.areas))throw 0;
       sheet('Ripristinare il backup?','<p class="para">I dati attuali su questo telefono vengono sostituiti da quelli del file.</p><button class="primary" id="doimp">Ripristina</button><button class="ghost" data-act="close">Annulla</button>');
-      document.getElementById('doimp').addEventListener('click',async()=>{for(const id in (o.files||{}))await fput(id,o.files[id]);S=o.state;S.onboarded=true;if(!Array.isArray(S.lists)||!S.lists.length)S.lists=defaultLists();shopSel=null;if(!S.settings)S.settings={};if(!Array.isArray(S.settings.rems))S.settings.rems=DEF_REMS.slice();save();close();tab('home');toast('Backup ripristinato');});
+      document.getElementById('doimp').addEventListener('click',async()=>{for(const id in (o.files||{}))await fput(id,o.files[id]);S=o.state;S.onboarded=true;if(!Array.isArray(S.todos))S.todos=[];if(!Array.isArray(S.lists)||!S.lists.length)S.lists=defaultLists();shopSel=null;if(!S.settings)S.settings={};if(!Array.isArray(S.settings.rems))S.settings.rems=DEF_REMS.slice();save();close();tab('home');toast('Backup ripristinato');});
     }catch(err){toast('Questo file non è un backup di Memovita');}
     return;
   }
@@ -855,6 +924,7 @@ document.addEventListener('change',async e=>{
 async function loadThumbs(){const els=document.querySelectorAll('img[data-thumb]');for(const el of els){const d=await fget(el.dataset.thumb);if(d)el.src=d;}}
 
 render();
+setInterval(()=>{if(!layer.innerHTML&&V.name!=='search'&&!(document.activeElement&&/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)))render();},60000);
 })();
 </script>
 </body>
