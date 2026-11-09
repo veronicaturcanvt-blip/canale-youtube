@@ -1,5 +1,5 @@
-# Publishes portfolio/ to the gh-pages branch, which GitHub Pages serves at
-# https://veronicaturcanvt-blip.github.io/canale-youtube/
+# Publishes portfolio/ to the root of the gh-pages branch and memovita/ to gh-pages/memovita/.
+# GitHub Pages serves them at https://veronicaturcanvt-blip.github.io/canale-youtube/ (and /memovita/)
 name: Publish portfolio
 
 on:
@@ -9,6 +9,7 @@ on:
       - claude/amazing-hawking-5l70ib # default branch, if the site is merged there
     paths:
       - 'portfolio/**'
+      - 'memovita/**'
       - '.github/workflows/publish-portfolio.yml'
   workflow_dispatch:
 
@@ -36,7 +37,10 @@ jobs:
 
       - name: Copy portfolio into gh-pages
         run: |
-          rsync -a --delete --exclude '.git' --exclude 'README.md' src/portfolio/ site/
+          rsync -a --delete --exclude '.git' --exclude 'README.md' --exclude 'memovita/' src/portfolio/ site/
+          # Memovita test app, served at /memovita/
+          mkdir -p site/memovita
+          rsync -a --delete --exclude 'README.md' src/memovita/ site/memovita/
           touch site/.nojekyll
 
       - name: Commit and push if changed
